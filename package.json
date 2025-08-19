@@ -1,0 +1,24 @@
+{
+  "name": "olivecss",
+  "version": "0.1.0",
+  "description": "CSS in COMMENT",
+  "keywords": ["css", "comment", "preprocessor", "frontend", "jsx", "react", "svelte", "vite"],
+  "main": "./src/olivecss.js",
+  "module": "./src/olivecss.js",
+  "exports": {
+    ".": {
+      "import": "./src/olivecss.js",
+      "require": "./src/olivecss.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "license": "MIT",
+  "author": "rebolation@naver.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rebolation/olivecss.git",
+    "directory": "src"
+  }
+}
