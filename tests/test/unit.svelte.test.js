@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/svelte'
 import { describe, it, expect } from 'vitest'
 import '@testing-library/jest-dom'
-import App from './svelte.svelte'
+import App from './TestComponent.svelte'
 
 describe('App.svelte', () => {
   it('renders greeting', () => {

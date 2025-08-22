@@ -1,5 +1,5 @@
 // const pluginTester = require("babel-plugin-tester");
-import olivecssPlugin from "../../src/olivecss-plugin-jsx.js";
+import olivecssPlugin from "../../src/olivecss-jsx.js";
 import pluginTesterModule from "babel-plugin-tester/pure";
 const pluginTester = pluginTesterModule.pluginTester;
 

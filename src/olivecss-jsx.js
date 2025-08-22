@@ -2,11 +2,14 @@
  * OliveCSS JSX Plugin
  *
  * Babel plugin that converts JSX comments to class/style attributes
- * Supports JSX frameworks
+ * Supports React and SolidJS
  */
-export default function ({ types: t }) {
+
+export default function ({ types: t }, options = {}) {
+  const framework = options.framework || "react";
+
   return {
-    name: "olivecss-plugin-jsx",
+    name: "olivecss-jsx",
     visitor: {
       Program(path) {
         const commentPaths = [];
@@ -25,7 +28,6 @@ export default function ({ types: t }) {
           },
         });
 
-        // Process each comment
         for (const commentPath of commentPaths) {
           const targetElement = findTargetJSXElement(commentPath, t);
           if (!targetElement) continue;
@@ -41,19 +43,12 @@ export default function ({ types: t }) {
             const trimmed = str.trim();
             if (!trimmed || trimmed.startsWith("//")) continue;
 
-            if (isStyleString(trimmed)) {
-              styleParts.push(trimmed);
-            } else {
-              classParts.push(...trimmed.split(/\s+/));
-            }
+            if (isStyleString(trimmed)) styleParts.push(trimmed);
+            else classParts.push(...trimmed.split(/\s+/));
           }
 
-          if (classParts.length > 0) {
-            addClassName(targetElement, classParts, t);
-          }
-          if (styleParts.length > 0) {
-            addStyle(targetElement, styleParts, t);
-          }
+          if (classParts.length > 0) addClassName(targetElement, classParts, t);
+          if (styleParts.length > 0) addStyle(targetElement, styleParts, t, framework);
 
           commentPath.remove();
         }
@@ -62,17 +57,12 @@ export default function ({ types: t }) {
   };
 }
 
-/** ───────────────────────────────
- * Determine if comment string is a style
- */
+/** ─────────────── Helpers ─────────────── */
+
 function isStyleString(str) {
-  // Only consider as style if it matches "key: value" pattern
   return /^[a-zA-Z-]+\s*:/.test(str);
 }
 
-/** ───────────────────────────────
- * Find JSXElement
- */
 function findTargetJSXElement(commentPath, t) {
   if (!commentPath.parentPath) return null;
 
@@ -84,9 +74,7 @@ function findTargetJSXElement(commentPath, t) {
 
   for (let i = commentIndex - 1; i >= 0; i--) {
     const sibling = siblings[i];
-
     if (sibling.isJSXText() && sibling.node.value.trim() === "") continue;
-
     if (
       sibling.isJSXExpressionContainer() &&
       sibling.node.expression &&
@@ -94,37 +82,24 @@ function findTargetJSXElement(commentPath, t) {
       sibling.node.expression.innerComments
     )
       continue;
-
-    if (sibling.isJSXElement()) {
-      return sibling.node.openingElement;
-    }
-
+    if (sibling.isJSXElement()) return sibling.node.openingElement;
     if (sibling.isJSXFragment()) {
       const fragmentChildren = sibling.node.children;
       if (Array.isArray(fragmentChildren)) {
         for (let j = fragmentChildren.length - 1; j >= 0; j--) {
           const fragmentChild = fragmentChildren[j];
-          if (t.isJSXElement(fragmentChild)) {
-            return fragmentChild.openingElement;
-          }
+          if (t.isJSXElement(fragmentChild)) return fragmentChild.openingElement;
         }
       }
       continue;
     }
-
     break;
   }
 
-  if (commentPath.parentPath.isJSXElement()) {
-    return commentPath.parentPath.node.openingElement;
-  }
-
+  if (commentPath.parentPath.isJSXElement()) return commentPath.parentPath.node.openingElement;
   return null;
 }
 
-/** ───────────────────────────────
- * Add class/className attribute
- */
 function addClassName(openingElement, classNames, t) {
   if (!classNames || classNames.length === 0) return;
 
@@ -134,9 +109,7 @@ function addClassName(openingElement, classNames, t) {
       (a.name.name === "className" || a.name.name === "class")
   );
 
-  const attrName =
-    targetAttr?.name?.name ||
-    (openingElement.name.name === "svg" ? "class" : "className");
+  const attrName = targetAttr?.name?.name || "className";
 
   if (!targetAttr) {
     targetAttr = t.jsxAttribute(
@@ -148,7 +121,6 @@ function addClassName(openingElement, classNames, t) {
   }
 
   const val = targetAttr.value;
-
   if (t.isStringLiteral(val)) {
     const tokens = val.value.trim() ? val.value.trim().split(/\s+/) : [];
     const merged = Array.from(new Set([...tokens, ...classNames]));
@@ -159,11 +131,7 @@ function addClassName(openingElement, classNames, t) {
   if (t.isJSXExpressionContainer(val)) {
     const expr = val.expression;
     targetAttr.value = t.jsxExpressionContainer(
-      t.binaryExpression(
-        "+",
-        t.binaryExpression("+", expr, t.stringLiteral(" ")),
-        t.stringLiteral(classNames.join(" "))
-      )
+      t.binaryExpression("+", t.binaryExpression("+", expr, t.stringLiteral(" ")), t.stringLiteral(classNames.join(" ")))
     );
     return;
   }
@@ -171,10 +139,14 @@ function addClassName(openingElement, classNames, t) {
   targetAttr.value = t.stringLiteral(classNames.join(" "));
 }
 
-/** ───────────────────────────────
- * Add style attribute
+/**
+ * Add or merge style attribute
+ * @param {JSXOpeningElement} openingElement
+ * @param {string[]} styleStrings
+ * @param {object} t
+ * @param {"react"|"solid"|"..."} framework
  */
-function addStyle(openingElement, styleStrings, t) {
+function addStyle(openingElement, styleStrings, t, framework = "react") {
   if (!styleStrings || styleStrings.length === 0) return;
 
   let styleAttr = openingElement.attributes.find(
@@ -182,17 +154,20 @@ function addStyle(openingElement, styleStrings, t) {
   );
 
   const styleObjProperties = [];
+
   for (const styleString of styleStrings) {
     const pairs = styleString.split(";").map((s) => s.trim()).filter(Boolean);
     for (const pair of pairs) {
       const [rawKey, rawVal] = pair.split(":").map((s) => s.trim());
       if (!rawKey || !rawVal) continue;
 
-      const key = rawKey.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      const key = framework === "react"
+        ? rawKey.replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+        : rawKey;
+
+      const objKey = framework === "react" ? t.identifier(key) : t.stringLiteral(key);
       const cleanVal = rawVal.replace(/^['"]|['"]$/g, "");
-      styleObjProperties.push(
-        t.objectProperty(t.identifier(key), t.stringLiteral(cleanVal))
-      );
+      styleObjProperties.push(t.objectProperty(objKey, t.stringLiteral(cleanVal)));
     }
   }
 
@@ -214,8 +189,9 @@ function addStyle(openingElement, styleStrings, t) {
     const existingPairs = val.value.split(";").map((s) => s.trim()).filter(Boolean);
     const existingProps = existingPairs.map((pair) => {
       const [k, v] = pair.split(":").map((s) => s.trim());
-      const key = k.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-      return t.objectProperty(t.identifier(key), t.stringLiteral(v));
+      const key = framework === "react" ? k.replace(/-([a-z])/g, (_, c) => c.toUpperCase()) : k;
+      const objKey = framework === "react" ? t.identifier(key) : t.stringLiteral(key);
+      return t.objectProperty(objKey, t.stringLiteral(v));
     });
     styleAttr.value = t.jsxExpressionContainer(
       t.objectExpression([...existingProps, ...styleObjProperties])

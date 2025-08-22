@@ -72,12 +72,12 @@ function isStyleString(str) {
 /** ───────────────────────────────
  * Find target Element for comment application
  */
-function findTargetElement(node) {
-  const parent = node.parent;
+function findTargetElement(commentNode) {
+  const parent = commentNode.parent;
   if (!parent || !parent.children) return null;
 
   const siblings = parent.children;
-  const index = siblings.indexOf(node);
+  const index = siblings.indexOf(commentNode);
 
   for (let i = index - 1; i >= 0; i--) {
     const sib = siblings[i];
@@ -103,6 +103,7 @@ function insertAttr(s, node, attrName, value) {
     // Merge with existing value
     const existingValue = (existing.value ? existing.value.map(v => v.raw || v.data).join(' ').trim() : '');
     let mergedValue;
+    
     if (attrName === 'class') {
       const tokens = Array.from(new Set([...existingValue.split(/\s+/).filter(Boolean), ...value.split(/\s+/).filter(Boolean)]));
       mergedValue = tokens.join(' ');

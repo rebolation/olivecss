@@ -1,8 +1,28 @@
 {
   "name": "olivecss",
-  "version": "0.1.0",
-  "description": "CSS in COMMENT",
-  "keywords": ["css", "comment", "preprocessor", "frontend", "jsx", "react", "svelte", "vite"],
+  "version": "0.2.2",
+  "description": "A lightweight plugin and preprocessor that transforms comments into CSS classes and inline styles.",
+  "keywords": [
+    "css",
+    "comment",
+    "frontend",
+    "preprocessor",
+    "jsx",
+    "react",
+    "solid",
+    "svelte",
+    "vue",
+    "vite"
+  ],
+  "license": "MIT",
+  "author": "Mun Jaehyeon",
+  "bugs": "https://github.com/rebolation/olivecss/issues",
+  "homepage": "https://rebolation.github.io/olivecss.pages",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rebolation/olivecss.git",
+    "directory": "src"
+  },
   "main": "./src/olivecss.js",
   "module": "./src/olivecss.js",
   "exports": {
@@ -13,12 +33,5 @@
   },
   "files": [
     "src"
-  ],
-  "license": "MIT",
-  "author": "rebolation@naver.com",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rebolation/olivecss.git",
-    "directory": "src"
-  }
+  ]
 }
