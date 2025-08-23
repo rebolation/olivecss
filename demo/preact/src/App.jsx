@@ -1,8 +1,6 @@
-import React from 'react';
-
 function App() {
   const text = {
-    title: 'React + 🫒 OliveCSS 🫒',
+    title: 'Preact + 🫒 OliveCSS 🫒',
     subtitle: '{/* background: olive; */}',
     features: [
       'comment → INLINE-STYLE',

@@ -456,7 +456,7 @@ describe('SolidJS Components', () => {
         const [theme, setTheme] = createSignal('light');
         
         createEffect(() => {
-          // 테마에 따른 스타일 적용
+          // Apply styles based on theme
         });
         
         return (

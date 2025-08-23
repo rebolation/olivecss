@@ -222,7 +222,7 @@ describe('VueTestComponent.vue', () => {
       const spanElement = element.find('span')
       expect(spanElement.exists()).toBe(true)
       expect(spanElement.text()).toBe('Hello World')
-      // 주석이 없으므로 span에는 class나 style이 추가되지 않아야 함
+      // No comments, so span should not have class or style added
       expect(spanElement.classes().length).toBe(0)
     })
 

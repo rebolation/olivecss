@@ -24,23 +24,26 @@ OliveCSS automatically converts your comments into `className`/`class` attribute
 
 ## Features
 
-- 🫒 **Automatic conversion** of CSS comments into `className`/`class` and inline `style`.
-- 🫒 **Supports major frameworks**: React, Solid, Svelte, and Vue.
-- 🫒 **Easy to integrate** into any project.
-- 🫒 **Lightweight**. (it's just an olive)
+- **Automatic conversion** of CSS comments into `className`/`class` and inline `style`.
+- **Supports major frameworks**: React, Solid, Svelte, and Vue.
+- **Easy to integrate** into any project.
+- **Lightweight**. (it's just an olive)
 
 
 
 ## How it works
 
-1. 🫒 **You write comments**
-    Write your CSS rules in comments next to the elements you want to style in your components. This way, **classes and styles are removed** (moved into comments) from elements, giving you **cleaner HTML tags**.
+#### 🫒 1. **You write comments**
 
-2. 🫒 **OliveCSS converts**
-    **At build time**, OliveCSS parses your code and **automatically converts** detected CSS comments into the appropriate `className/class` attributes and inline `style` properties.
+Write your CSS rules in comments next to the elements you want to style in your components. This way, **classes and styles are removed** (moved into comments) from elements, giving you **cleaner HTML tags**.
 
-3. 🫒 **You get clean code**
-    Your HTML, JSX, Vue, or Svelte code now contains proper classes and styles, without manually editing attributes or creating separate CSS files.
+#### 🫒 2. **OliveCSS converts**
+
+**At build time**, OliveCSS parses your code and **automatically converts** detected CSS comments into the appropriate `className/class` attributes and inline `style` properties.
+
+#### 🫒 3. **You get clean code**
+
+Your HTML, JSX, Vue, or Svelte code now contains proper classes and styles, without manually editing attributes or creating separate CSS files.
 
 
 
@@ -98,41 +101,75 @@ That's all you need; no extra configuration is needed in your components.
 
 #### 🫒 React + Tailwind
 
-  ```js
-  // vite.config.js
-  import { defineConfig } from "vite";
-  import react from "@vitejs/plugin-react";
-  import tailwind from "@tailwindcss/vite";
-  import olivecss from "olivecss";
-
-  export default defineConfig({
-    plugins: [
-      react({
-        babel: {
-          plugins: [[ olivecss ]],
-        },
-      }),
-      tailwind(),
-    ],
-  });
-  ```
-
-#### 🫒 Solid + Tailwind
-
 ```js
 // vite.config.js
-import { defineConfig } from 'vite'
-import solid from 'vite-plugin-solid'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 import tailwind from "@tailwindcss/vite";
 import olivecss from "olivecss";
 
 export default defineConfig({
   plugins: [
-    solid({
+    react({
       babel: {
-        plugins: [[ olivecss, { framework: 'solid' } ]],
+        plugins: [[ olivecss ]],
       },
     }),
+    tailwind(),
+  ],
+});
+```
+
+#### 🫒 Vue + Tailwind
+
+```js
+// vite.config.js
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import tailwind from "@tailwindcss/vite";
+import { OliveVue } from "olivecss";
+
+export default defineConfig({
+  plugins: [
+    OliveVue(),
+    vue(),
+    tailwind(),
+  ],
+});
+
+```
+
+#### 🫒 Preact + Tailwind
+
+```js
+import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
+import tailwind from "@tailwindcss/vite";
+import olivecss from "olivecss";
+
+export default defineConfig({
+  plugins: [
+    preact({
+      babel: {
+        plugins: [[ olivecss ]],
+      },
+    }),
+    tailwind(),
+  ],
+});
+
+```
+
+#### 🫒 Lit + Tailwind
+
+```js
+import { defineConfig } from "vite";
+import tailwind from "@tailwindcss/vite";
+import { OliveLit } from "olivecss";
+
+export default defineConfig({
+  plugins: [
+    OliveLit(),
     tailwind(),
   ],
 });
@@ -171,31 +208,26 @@ export default {
 
 ```
 
-#### 🫒 Vue + Tailwind
+#### 🫒 Solid + Tailwind
 
 ```js
 // vite.config.js
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig } from 'vite'
+import solid from 'vite-plugin-solid'
 import tailwind from "@tailwindcss/vite";
-import { OliveVue } from "olivecss";
+import olivecss from "olivecss";
 
 export default defineConfig({
   plugins: [
-    OliveVue(),
-    vue({
-      template: {
-        compilerOptions: {
-          comments: true
-        }
-      }
+    solid({
+      babel: {
+        plugins: [[ olivecss, { framework: 'solid' } ]],
+      },
     }),
     tailwind(),
   ],
 });
-
 ```
-
 
 
 ## Comment Syntax
@@ -248,9 +280,10 @@ Multiple consecutive comments are automatically merged:
 ```
 src/
 ├── olivecss.js                 # Main entry point exporting all modules
-├── olivecss-jsx.js             # JSX (React/Solid) Babel plugin
-├── olivecss-svelte.js          # Svelte preprocessor
-└── olivecss-vue.js             # Vue plugin
+├── olivecss-jsx.js             # for JSX(React/Preact/Solid) integration
+├── olivecss-vue.js             # for Vue integration
+├── olivecss-lit.js             # for Lit integration
+└── olivecss-svelte.js          # for Svelte integration
 
 demo/                           # Demo
 tests/                          # Test files
@@ -268,13 +301,16 @@ npm install
 npm run test                    # Run all tests
 npm run test.unit               # Run all unit tests
 npm run test.unit.react         # Run unit tests for React
-npm run test.unit.solid         # Run unit tests for Solid
-npm run test.unit.svelte        # Run unit tests for Svelte
 npm run test.unit.vue           # Run unit tests for Vue
-npm run test.babel              # Run all Babel-related tests
-npm run test.babel.react        # Run Babel tests for React
-npm run watch                   # Watch all tests and rerun on source changes
-npm run watch.unit              # Watch all unit tests and rerun on source changes
+npm run test.unit.preact        # Run unit tests for Preact
+npm run test.unit.lit           # Run unit tests for lit
+npm run test.unit.svelte        # Run unit tests for Svelte
+npm run test.unit.solid         # Run unit tests for solid
+...
+
+npm run watch                   # Watch and rerun all tests
+npm run watch.unit              # Watch and rerun all unit tests
+npm run watch.unit.react        # Watch and rerun unit tests for React
 ...
 ```
 
@@ -282,9 +318,14 @@ npm run watch.unit              # Watch all unit tests and rerun on source chang
 
 ## Dependencies
 Depending on your usage environment, this project may depend on the following packages:
-- [@vue/compiler-sfc, @vue/compiler-dom](https://github.com/vuejs/core) — MIT License
-- [svelte/compiler](https://github.com/sveltejs/svelte) — MIT License
-- [magic-string](https://github.com/Rich-Harris/magic-string) — MIT License
+
+- [magic-string](https://www.npmjs.com/package/magic-string) — MIT License
+- [@babel/traverse](https://www.npmjs.com/package/@babel/traverse) — MIT License
+- [@babel/parser](https://www.npmjs.com/package/@babel/parser) — MIT License
+- [@vue/compiler-sfc](https://www.npmjs.com/package/@vue/compiler-sfc) — MIT License
+- [@vue/compiler-dom](https://www.npmjs.com/package/@vue/compiler-dom) — MIT License
+- [svelte/compiler](https://www.npmjs.com/package/svelte) — MIT License
+- [node-html-parser](https://www.npmjs.com/package/node-html-parser) — MIT License
 
 
 

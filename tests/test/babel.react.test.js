@@ -1,10 +1,10 @@
 // const pluginTester = require("babel-plugin-tester");
-import olivecssPlugin from "../../src/olivecss-jsx.js";
+import olivecss from "../../src/olive-jsx.js";
 import pluginTesterModule from "babel-plugin-tester/pure";
 const pluginTester = pluginTesterModule.pluginTester;
 
 pluginTester({
-  plugin: olivecssPlugin,
+  plugin: olivecss,
   pluginName: "olivecss-plugin-jsx",
   babelOptions: {
     presets: ["@babel/preset-react"],

@@ -8,7 +8,7 @@
   export let isAdmin = false;
   export let showDetails = false;
   
-  // 테스트용 데이터
+  // Test data
   const items = [
     { id: 1, name: 'Item 1', active: true },
     { id: 2, name: 'Item 2', active: false },

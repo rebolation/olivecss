@@ -1,7 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import React from 'react';
+import { render, screen } from '@testing-library/preact';
 
-describe('React Components', () => {
+describe('Preact Components', () => {
 
   describe('BasicTransformation', () => {
     let BasicTransformation = () => {
@@ -279,17 +278,12 @@ describe('React Components', () => {
     it('renders colored elements with style', () => {
       render(<ArrayRendering items={[]} colors={mockColors} users={[]} />);
       const elements = screen.getAllByText('');
-      const coloredElements = elements.filter(el => el.style.backgroundColor === 'rgb(255, 0, 0)');
-      // Test conditionally as there may be no elements with styles applied
-      if (coloredElements.length > 0) {
-        expect(coloredElements).toHaveLength(2);
-        coloredElements.forEach(element => {
-          expect(element).toHaveStyle({ backgroundColor: 'rgb(255, 0, 0)' });
-        });
-      } else {
-        // Check empty array when styles are not applied
-        expect(coloredElements).toHaveLength(0);
-      }
+      const coloredElements = elements.filter(el => el.style.backgroundColor === 'red');
+
+      expect(coloredElements).toHaveLength(2);
+      coloredElements.forEach(element => {
+        expect(element).toHaveStyle({ backgroundColor: 'rgb(255, 0, 0)' });
+      });
     });
 
     it('renders user cards with className', () => {

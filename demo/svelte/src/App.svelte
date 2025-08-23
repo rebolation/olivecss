@@ -22,7 +22,7 @@
         <h2>Key Features:</h2> <!-- text-2xl font-bold text-slate-700 mb-6 -->
         <ul> <!-- text-left px-8 --> <!-- bg-gray-100 px-4 py-2 mb-5 rounded-lg -->
           {#each features as feature, index}
-            <li> <!-- text-lg py-1 max-w-[250px] mx-auto -->
+            <li> <!-- text-lg py-1 max-w-[260px] mx-auto -->
               <span>{featureIcon}</span><!-- mr-2 -->{feature}
             </li>
           {/each}

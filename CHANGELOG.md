@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 (nothing yet)
 
+
+---
+
+## [0.3.0] - 2025-08-24
+
+### Added
+- Added support for **Preact** and **Lit** (with test cases)
+
 ---
 
 ## [0.2.2] - 2025-08-22

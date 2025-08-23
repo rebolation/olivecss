@@ -177,7 +177,7 @@ export default {
   },
   data() {
     return {
-      // 테스트용 데이터
+      // Test data
       items: [
         { id: 1, name: 'Item 1', active: true },
         { id: 2, name: 'Item 2', active: false },

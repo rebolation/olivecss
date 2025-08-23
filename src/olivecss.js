@@ -5,11 +5,14 @@
  */
 
 // JSX Plugin
-import OliveJSX from './olivecss-jsx.js';
+import OliveJSX from './olive-jsx.js';
 export default OliveJSX; // Default export
 
 // Svelte Plugin
-export { OliveSvelte } from './olivecss-svelte.js'; // Named export
+export { OliveSvelte } from './olive-svelte.js'; // Named export
 
 // Vue Plugin
-export { OliveVue } from './olivecss-vue.js'; // Named export
+export { OliveVue } from './olive-vue.js'; // Named export
+
+// Lit Plugin
+export { OliveLit } from './olive-lit.js'; // Named export
