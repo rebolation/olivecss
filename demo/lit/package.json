@@ -14,7 +14,6 @@
   "devDependencies": {
     "@babel/parser": "^7.28.3",
     "@babel/traverse": "^7.28.3",
-    "@lit-labs/rollup-plugin-minify-html-literals": "^0.1.0",
     "@tailwindcss/vite": "^4.1.12",
     "magic-string": "^0.30.18",
     "node-html-parser": "^7.0.1",

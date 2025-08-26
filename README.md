@@ -1,22 +1,36 @@
-# 🫒 Olive CSS
 
-A lightweight package that transforms comments...
+<p align="center">
+  <a href="https://rebolation.github.io/olivecss.pages" target="_blank">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rebolation/olivecss/HEAD/.github/logo-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/rebolation/olivecss/HEAD/.github/logo-light.png">
+      <img alt="Olive CSS" src="https://raw.githubusercontent.com/rebolation/olivecss/HEAD/.github/logo-light.png" width="550" style="max-width: 100%;">
+    </picture>
+  </a>
+</p>
+
+<p align="center">
+  A lightweight package that transforms comments into CSS classes and inline styles.
+</p>
+
+---
+
 
 ```html
 <div>🫒</div> <!-- this_is_a_delicious_olive -->
 ```
-...into CSS classes and inline styles.
+...results in the following:
 ```html
 <div class="this_is_a_delicious_olive">🫒</div>
 ```
 
-The official website built with OliveCSS : [https://rebolation.github.io/olivecss.pages](https://rebolation.github.io/olivecss.pages)
+[Demo](https://rebolation.github.io/olivecss.pages) (created with OliveCSS)
 
 
 
 ## Overview
 
-Use **comments** to add CSS, making your HTML **cleaner and easier to read**.
+Use **comments** to add CSS, making your HTML **cleaner** and **easier to read**.
 
 OliveCSS automatically converts your comments into `className`/`class` attributes and `style` properties, keeping your code tidy and maintainable across modern frameworks.
 
@@ -24,10 +38,9 @@ OliveCSS automatically converts your comments into `className`/`class` attribute
 
 ## Features
 
-- **Automatic conversion** of CSS comments into `className`/`class` and inline `style`.
-- **Supports major frameworks**: React, Solid, Svelte, and Vue.
-- **Easy to integrate** into any project.
-- **Lightweight**. (it's just an olive)
+- **Automatic conversion** of CSS comments into `className`/`class` and inline `style`
+- **Supports major frameworks**: React, Vue, Svelte, Astro, Solid, Preact, and Lit
+- **Easy to integrate** into any project
 
 
 
@@ -85,34 +98,32 @@ which would become:
 
 
 
-## Installation
-
-```bash
-npm install --save-dev olivecss
-```
-
-
-
 ## Usage (with Vite)
 
 OliveCSS integrates seamlessly with popular frameworks using a minimal setup. The example configurations are shown below. 
 
 That's all you need; no extra configuration is needed in your components.
 
-#### 🫒 React + Tailwind
+#### 🫒 React / Preact / Solid + Tailwind
+
+```bash
+npm install --save-dev olivecss
+```
 
 ```js
 // vite.config.js
+// import preact from "@preact/preset-vite";
+// import solid from 'vite-plugin-solid'
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react"; 
 import tailwind from "@tailwindcss/vite";
 import olivecss from "olivecss";
 
 export default defineConfig({
   plugins: [
-    react({
+    react({ // preact({  solid ({
       babel: {
-        plugins: [[ olivecss ]],
+        plugins: [[ olivecss ]], // plugins: [[ olivecss, { framework: 'solid' } ]],
       },
     }),
     tailwind(),
@@ -121,6 +132,9 @@ export default defineConfig({
 ```
 
 #### 🫒 Vue + Tailwind
+```bash
+npm install --save-dev olivecss node-html-parser
+```
 
 ```js
 // vite.config.js
@@ -129,9 +143,11 @@ import vue from "@vitejs/plugin-vue";
 import tailwind from "@tailwindcss/vite";
 import { OliveVue } from "olivecss";
 
+const oliveVue = await OliveVue();
+
 export default defineConfig({
   plugins: [
-    OliveVue(),
+    oliveVue,
     vue(),
     tailwind(),
   ],
@@ -139,43 +155,10 @@ export default defineConfig({
 
 ```
 
-#### 🫒 Preact + Tailwind
-
-```js
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import tailwind from "@tailwindcss/vite";
-import olivecss from "olivecss";
-
-export default defineConfig({
-  plugins: [
-    preact({
-      babel: {
-        plugins: [[ olivecss ]],
-      },
-    }),
-    tailwind(),
-  ],
-});
-
-```
-
-#### 🫒 Lit + Tailwind
-
-```js
-import { defineConfig } from "vite";
-import tailwind from "@tailwindcss/vite";
-import { OliveLit } from "olivecss";
-
-export default defineConfig({
-  plugins: [
-    OliveLit(),
-    tailwind(),
-  ],
-});
-```
-
 #### 🫒 Svelte + Tailwind
+```bash
+npm install --save-dev olivecss
+```
 
 ```js
 // vite.config.js
@@ -184,17 +167,16 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 import tailwind from "@tailwindcss/vite";
 import { OliveSvelte } from 'olivecss';
 
-export default defineConfig(async () => {
-  const olivecss = await OliveSvelte();
-  return {
-    plugins: [
-      svelte({
-        preprocess: [olivecss],
-      }),
-      tailwind(),
-    ],
-  };
-})
+const oliveSvelte = await OliveSvelte();
+
+export default defineConfig({
+  plugins: [
+    svelte({
+      preprocess: [ oliveSvelte ],
+    }),
+    tailwind(),
+  ],
+});
 ```
 ```js
 // svelte.config.js
@@ -205,25 +187,76 @@ export default {
     vitePreprocess()
   ],
 }
-
 ```
 
-#### 🫒 Solid + Tailwind
+#### 🫒 Astro + React + Vue + Svelte + Tailwind
+```bash
+npm install @astrojs/react @astrojs/svelte @astrojs/vue @vitejs/plugin-vue
+npm install olivecss magic-string node-html-parser
+```
 
 ```js
-// vite.config.js
-import { defineConfig } from 'vite'
-import solid from 'vite-plugin-solid'
+// astro.config.mjs
+// @ts-check
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@astrojs/react";
+import vue from "@astrojs/vue";
+import vueVite from "@vitejs/plugin-vue";
+import svelte from "@astrojs/svelte";
+import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from 'olivecss'; // prod
+
+const oliveAstro = await OliveAstro();
+const oliveVue = await OliveVue();
+const oliveSvelte = await OliveSvelte();
+
+export default defineConfig({
+  integrations: [
+    react({
+      babel: {
+        plugins: [[ oliveJSX ]],
+      },
+    }), 
+    vue(), 
+    svelte({
+      preprocess: [ oliveSvelte ],
+    }),
+  ],
+  vite: {
+    plugins: [
+      oliveVue,
+      oliveAstro,
+      tailwindcss(),
+    ],
+  },
+});
+```
+```js
+// svelte.config.js
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+
+export default {
+  preprocess: [
+    vitePreprocess()
+  ],
+}
+```
+
+#### 🫒 Lit + Tailwind
+```bash
+npm install --save-dev olivecss @babel/parser @babel/traverse magic-string node-html-parser
+```
+
+```js
+import { defineConfig } from "vite";
 import tailwind from "@tailwindcss/vite";
-import olivecss from "olivecss";
+import { OliveLit } from "olivecss";
+
+const oliveLit = await OliveLit();
 
 export default defineConfig({
   plugins: [
-    solid({
-      babel: {
-        plugins: [[ olivecss, { framework: 'solid' } ]],
-      },
-    }),
+    oliveLit,
     tailwind(),
   ],
 });
@@ -280,10 +313,11 @@ Multiple consecutive comments are automatically merged:
 ```
 src/
 ├── olivecss.js                 # Main entry point exporting all modules
-├── olivecss-jsx.js             # for JSX(React/Preact/Solid) integration
-├── olivecss-vue.js             # for Vue integration
-├── olivecss-lit.js             # for Lit integration
-└── olivecss-svelte.js          # for Svelte integration
+├── olive-jsx.js                # for JSX(React/Preact/Solid) integration
+├── olive-vue.js                # for Vue integration
+├── olive-svelte.js             # for Svelte integration
+├── olive-astro.js              # for Astro integration
+└── olive-lit.js                # for Lit integration
 
 demo/                           # Demo
 tests/                          # Test files
@@ -302,15 +336,14 @@ npm run test                    # Run all tests
 npm run test.unit               # Run all unit tests
 npm run test.unit.react         # Run unit tests for React
 npm run test.unit.vue           # Run unit tests for Vue
-npm run test.unit.preact        # Run unit tests for Preact
-npm run test.unit.lit           # Run unit tests for lit
 npm run test.unit.svelte        # Run unit tests for Svelte
-npm run test.unit.solid         # Run unit tests for solid
 ...
 
 npm run watch                   # Watch and rerun all tests
 npm run watch.unit              # Watch and rerun all unit tests
 npm run watch.unit.react        # Watch and rerun unit tests for React
+npm run watch.unit.vue          # Watch and rerun unit tests for Vue
+npm run watch.unit.svelte       # Watch and rerun unit tests for Svelte
 ...
 ```
 
@@ -323,7 +356,6 @@ Depending on your usage environment, this project may depend on the following pa
 - [@babel/traverse](https://www.npmjs.com/package/@babel/traverse) — MIT License
 - [@babel/parser](https://www.npmjs.com/package/@babel/parser) — MIT License
 - [@vue/compiler-sfc](https://www.npmjs.com/package/@vue/compiler-sfc) — MIT License
-- [@vue/compiler-dom](https://www.npmjs.com/package/@vue/compiler-dom) — MIT License
 - [svelte/compiler](https://www.npmjs.com/package/svelte) — MIT License
 - [node-html-parser](https://www.npmjs.com/package/node-html-parser) — MIT License
 

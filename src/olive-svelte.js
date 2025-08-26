@@ -92,6 +92,44 @@ function findTargetElement(commentNode) {
 }
 
 /** ───────────────────────────────
+ * Collect consecutive comments
+ */
+function collectConsecutiveComments(nodes, startIndex) {
+  const comments = [];
+
+  for (let i = startIndex; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (node.type === "Comment") {
+      const text = node.data.trim();
+      if (text && !text.startsWith("//")) comments.push(node);
+      else break;
+    } else if (node.type === "Text" && node.data.trim() === "") continue;
+    else break;
+  }
+
+  return comments;
+}
+
+/** ───────────────────────────────
+ * Merge comments
+ */
+function mergeComments(comments) {
+  const classParts = [];
+  const styleParts = [];
+
+  comments.forEach(c => {
+    const text = c.data.trim();
+    if (isStyleString(text)) styleParts.push(text);
+    else classParts.push(text);
+  });
+
+  return {
+    class: classParts.length > 0 ? classParts.join(' ') : null,
+    style: styleParts.length > 0 ? styleParts.join('; ') : null
+  };
+}
+
+/** ───────────────────────────────
  * Insert/Merge attributes
  */
 function insertAttr(s, node, attrName, value) {
@@ -150,42 +188,4 @@ function removeComment(comment) {
   if (!parent || !parent.children) return;
   const idx = parent.children.indexOf(comment);
   if (idx !== -1) parent.children.splice(idx, 1);
-}
-
-/** ───────────────────────────────
- * Collect consecutive comments
- */
-function collectConsecutiveComments(nodes, startIndex) {
-  const comments = [];
-
-  for (let i = startIndex; i < nodes.length; i++) {
-    const node = nodes[i];
-    if (node.type === "Comment") {
-      const text = node.data.trim();
-      if (text && !text.startsWith("//")) comments.push(node);
-      else break;
-    } else if (node.type === "Text" && node.data.trim() === "") continue;
-    else break;
-  }
-
-  return comments;
-}
-
-/** ───────────────────────────────
- * Merge comments
- */
-function mergeComments(comments) {
-  const classParts = [];
-  const styleParts = [];
-
-  comments.forEach(c => {
-    const text = c.data.trim();
-    if (isStyleString(text)) styleParts.push(text);
-    else classParts.push(text);
-  });
-
-  return {
-    class: classParts.length > 0 ? classParts.join(' ') : null,
-    style: styleParts.length > 0 ? styleParts.join('; ') : null
-  };
 }

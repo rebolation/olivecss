@@ -1,18 +1,17 @@
 {
   "name": "olivecss",
-  "version": "0.3.0",
+  "type": "module",
+  "version": "0.4.0",
   "description": "A lightweight plugin and preprocessor that transforms comments into CSS classes and inline styles.",
   "keywords": [
     "css",
     "comment",
-    "frontend",
-    "preprocessor",
-    "jsx",
     "react",
-    "solid",
-    "svelte",
     "vue",
-    "vite"
+    "preact",
+    "lit",
+    "svelte",
+    "solid"
   ],
   "license": "MIT",
   "author": "Mun Jaehyeon",

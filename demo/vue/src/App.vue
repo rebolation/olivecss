@@ -14,12 +14,12 @@
         </div>
         <h2>Example:</h2> <!-- text-2xl font-bold text-slate-700 mb-6 -->
         <div> <!-- bg-gray-100 px-4 py-2 mb-5 rounded-lg -->
-          <p>{{ `<!-- background: olive; color:white; -->` }}</p> <!-- background: olive; color:white; --> <!-- rounded-sm -->
+          <p>{{ `&lt;!-- background: olive; color:white; --&gt;` }}</p> <!-- background: olive; color:white; --> <!-- rounded-sm -->
           <p>style="background: olive; color:white;"</p> <!-- mb-5 -->
-          <p>{{ `<!-- bg-lime-700 text-white -->` }}</p> <!-- bg-lime-700 text-white-->
+          <p>{{ `&lt;!-- bg-lime-700 text-white --&gt` }}</p> <!-- bg-lime-700 text-white-->
           <p>class="bg-lime-700 text-white"</p> <!-- mb-5 rounded-sm -->
-          <p>{{ `<!-- // double-slash for a comment -->` }}</p> <!-- bg-lime-900 text-white -->
-          <p>{{ `<!-- double-slash for a comment -->` }}</p> <!-- // double-slash for a comment -->
+          <p>{{ `&lt;!-- // double-slash for a comment --&gt` }}</p> <!-- bg-lime-900 text-white -->
+          <p>{{ `&lt;!-- double-slash for a comment --&gt` }}</p> <!-- // double-slash for a comment -->
         </div>
       </header>
     </div>

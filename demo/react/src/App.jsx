@@ -3,7 +3,7 @@ import React from 'react';
 function App() {
   const text = {
     title: 'React + 🫒 OliveCSS 🫒',
-    subtitle: '{/* background: olive; */}',
+    subtitle: 'Hello React!',
     features: [
       'comment → INLINE-STYLE',
       'comment → CLASSNAME',

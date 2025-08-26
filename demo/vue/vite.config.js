@@ -3,10 +3,12 @@ import vue from "@vitejs/plugin-vue";
 import tailwind from "@tailwindcss/vite";
 import { OliveVue } from "../../src/olivecss.js";
 
+const oliveVue = await OliveVue();
+
 export default defineConfig({
   plugins: [
-    OliveVue(),
+    oliveVue,
     vue(),
     tailwind(),
-  ],
+  ]
 });

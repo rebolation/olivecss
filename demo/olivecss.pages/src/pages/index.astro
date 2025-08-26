@@ -1,0 +1,188 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Code } from 'astro:components';
+import AstroReact from '../components/AstroReact';
+import AstroVue from '../components/AstroVue.vue';
+import AstroSvelte from '../components/AstroSvelte.svelte';
+import "../index.css";
+
+import logo from '../logo-transparent.png';
+const code0 = `<p>© 2025 Mun</p> {/* background-color: #1E1E1E; */}`
+const code1 = `<p>🫒</p> {/* this_is_a_delicious_olive */}`
+const code2 = `<p class='this_is_not_a_delicious_olive'>🫒</p>`;
+const code3 = `
+    export default function App() {
+        return (
+        <div>
+            <h1>Hello Olive!</h1> {/* text-5xl font-bold text-green-600 */}
+        </div>
+        )
+    }`    
+const islands = [
+	{ name: 'React Island', theme: 'bg-cyan-600' },
+	{ name: 'Vue Island', theme: 'bg-emerald-500' },
+	{ name: 'Svelte Island', theme: 'bg-orange-600' },
+]
+const features = [
+	'Automatic conversion',
+	'Supports major frameworks',
+	'Easy to integrate',
+]
+---
+<Layout>
+    <div> <!--  bg-gradient-to-r from-lime-500 via-emerald-600 to-lime-500  -->
+
+        <!-- // 고정 상단바 -->
+        <header> <!-- fixed top-0 left-0 right-0 bg-slate-900 shadow z-50 -->
+            <div> <!-- max-w-5xl mx-auto flex items-center justify-center -->
+                <h1> <!-- text-center p-4 -->
+                    <img alt="Olive CSS" src={logo.src} style="width: 100%; max-width: 480px; opacity: 0.8; " />
+                </h1>
+                <!-- // 
+                <nav> 
+                    <a href="#">Home</a> 
+                    <a href="https://github.com/rebolation/olivecss">GitHub</a> 
+                </nav>
+                -->
+            </div>
+            <div> <!-- w-full --> <!-- background-color: #1E1E1E; -->
+                <div> <!-- min-w-md max-w-md mx-auto px-6 text-thin text-sm -->
+                    <Code code={code0} lang="jsx" theme="dark-plus" />
+                </div>
+            </div>
+        </header>
+
+        <!-- // 메인 영역 -->
+        <main> <!-- pt-32 -->
+
+            <!-- // Hero 섹션 -->
+            <section> <!-- relative text-center mt-6 px-30 py-50 overflow-hidden -->
+                <div></div> <!-- absolute inset-0 max-w-5xl lg:mx-auto mx-8 my-18 rounded-4xl border-3 border-dashed border-white -->
+                <div> <!-- relative z-10 space-y-16 text-white -->
+                    <h2>For Readable HTML</h2> <!-- text-4xl md:text-6xl font-extrabold -->
+                    <div> <!-- max-w-xl mx-auto rounded-lg p-8 flex flex-col space-y-2 gap-1 --> <!-- background-color: #1E1E1E; -->
+                        <p><Code code={code1} lang="jsx" theme="dark-plus" /></p>
+                        <p>vs</p>
+                        <p><Code code={code2} lang="jsx" theme="dark-plus" /></p>
+                    </div>
+                    <div> <!-- flex justify-center space-x-4 -->
+                        <a href="https://www.npmjs.com/package/olivecss">npm i -D olivecss</a> <!-- bg-white text-green-600 font-semibold px-6 py-3 rounded-xl shadow hover:bg-gray-100 transition -->
+                    </div>
+                </div>
+            </section>        
+
+            <!-- //   -->
+            <div> <!-- max-w-5xl mx-auto space-y-3 bg-gray-100 p-3 mb-12 rounded-4xl -->
+                <!-- // OliveCSS 예제 섹션  -->
+                <section>
+                    <div> <!-- pb-6 bg-gray-900 text-gray-100 rounded-t-3xl shadow overflow-hidden -->
+                        <div>Example.jsx</div> <!-- bg-gray-800 px-4 py-2 text-sm text-green-400 font-mono -->
+                        <Code code={code3} lang="js" theme="dark-plus" />                        
+                    </div>
+
+                    <!-- // 미리보기 영역  -->
+                    <div> <!-- flex justify-center -->
+                        <div> <!-- bg-white rounded-b-2xl shadow-lg py-8 px-6 text-center w-full -->
+                            <h1>Hello Olive!</h1> <!-- text-5xl font-bold text-green-600 -->
+                            <div> <!-- mt-8 border-2 border-dashed border-gray-400 rounded-lg p-4 relative group cursor-pointer -->
+                                <span>How it works</span> <!-- text-md block group-hover:opacity-0 transition-opacity duration-300 -->
+                                <span>At build time, OliveCSS parses your code and automatically converts detected CSS comments into class and styles.</span> <!-- absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-2 text-md text-gray-700 -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- // 2컬럼: 특징  -->
+                <section> <!-- grid grid-cols-1 md:grid-cols-2 gap-3 -->
+                    <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
+                        <h3>Vite</h3> <!-- text-xl font-semibold mb-2 -->
+                        <p>OliveCSS works well with Vite.</p> <!-- text-gray-600 mb-4 -->
+                    </div>
+                    <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
+                        <h3>Tailwind</h3> <!-- text-xl font-semibold mb-2 -->
+                        <p>OliveCSS also works well with Tailwind.</p> <!-- text-gray-600 mb-4 -->
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- // Island 섹션 -->
+            <section id="astro"> <!-- relative text-center px-30 -mt-12 pt-12 pb-24 overflow-hidden -->
+                <div> <!-- absolute inset-0 max-w-5xl lg:mx-auto mx-8 my-12 rounded-4xl border-3 border-dashed border-white -->
+                    <div></div> <!-- absolute inset-5 bg-gray-100 bg-gradient-to-t from-teal-900 via-sky-600 to-cyan-100 opacity-35 rounded-4xl -->
+                </div>
+                <div> <!-- flex-1 relative flex flex-col justify-start items-center py-8 -->
+                    <p>Supports React, Vue, Svelte, Astro, Solid, Preact, Lit, ...</p> <!-- relative z-10 text-4xl font-thin text-sky-900 py-12 -->
+                    <div> <!-- flex flex-col xl:flex-row items-center justify-center gap-8 -->
+                        {islands.map((island, index) => (
+                            <div> <!-- zoom: 0.6 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-3xl z-10 hover:z-20 -->
+                                {(island.name == 'React Island') && <div> <!-- transform rotate-3 hover:rotate-6 transition-transform duration-300 --><AstroReact name={island.name} theme={island.theme} features={features} /></div>}
+                                {(island.name == 'Vue Island') && <div> <!-- transform -rotate-2 hover:-rotate-4 transition-transform duration-300 --><AstroVue name={island.name} theme={island.theme} features={features} /></div>}
+                                {(island.name == 'Svelte Island') && <div> <!-- transform rotate-1 hover:rotate-3 transition-transform duration-300 --><AstroSvelte name={island.name} theme={island.theme} features={features} /></div>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section id="astro"> 
+                <div> <!-- max-w-5xl mx-auto space-y-3 bg-gray-100 p-3 mb-12 rounded-4xl -->
+                    <!-- // 2컬럼: 특징  -->
+                    <section> <!-- grid grid-cols-1 md:grid-cols-2 gap-3 -->
+                        <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
+                            <h3>Comment-based Syntax</h3> <!-- text-xl font-semibold mb-2 -->
+                            <p>OliveCSS lets you write CSS utilities directly in comments inside your HTML, JSX, or Svelte files. Simple and intuitive — no need for heavy configuration.</p> <!-- text-slate-400 mb-4 -->
+                        </div>
+                        <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
+                            <h3>Zero Runtime Overhead</h3> <!-- text-xl font-semibold mb-2 -->
+                            <p>OliveCSS transforms your source code at build time. That means no runtime cost, smaller bundles, and faster rendering.</p> <!-- text-slate-400 mb-4 -->
+                        </div>
+                    </section>
+
+                    <!-- // 3컬럼: 장점  -->
+                    <section> <!-- grid grid-cols-1 md:grid-cols-3 gap-3 -->
+                        <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
+                            <h3>Framework Agnostic</h3> <!-- text-xl font-semibold mb-2 -->
+                            <p>Works with React, Vue, Svelte, SolidJS, and more. Just install and use.</p> <!-- text-slate-400 mb-4 -->
+                        </div>
+                        <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
+                            <h3>Lightweight & Fast</h3> <!-- text-xl font-semibold mb-2 -->
+                            <p>Tiny package size with blazing fast transformation — optimized for developer productivity.</p> <!-- text-slate-400 mb-4 -->
+                        </div>
+                        <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
+                            <h3>Open Source</h3> <!-- text-xl font-semibold mb-2 -->
+                            <p>Free, open source, and community-driven. Contribute and shape the future of CSS utilities.</p> <!-- text-slate-400 mb-4 -->
+                            <a href="https://github.com/rebolation/olivecss">GitHub →</a> <!-- text-green-600 font-medium hover:underline -->
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+
+        <!-- // 푸터  -->
+        <footer>
+            <div> <!-- bg-gradient-to-r from-lime-400 via-emerald-500 to-lime-400 text-white -->
+                <div> <!-- max-w-5xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 -->
+                    <div>
+                        <h4>Source</h4> <!-- text-lg font-semibold mb-3 -->
+                        <ul> <!-- space-y-2 text-sm -->
+                            <li>
+                                <a href="https://github.com/rebolation/olivecss">GitHub</a> <!-- hover:underline -->
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Contact</h4> <!-- text-lg font-semibold mb-3 -->
+                        <ul> <!-- space-y-2 text-sm -->
+                            <li>
+                                <a href="mailto:rebolation@naver.com">Email</a> <!-- hover:underline -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>© 2025 Mun Jaehyeon. All rights reserved.</div> <!-- bg-gray-900 text-gray-400 text-center py-4 text-sm -->
+        </footer>
+
+    </div>
+</Layout>

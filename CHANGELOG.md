@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.0] - 2025-08-25
+
+### Added
+- Added support for **Astro** (demo/astro)
+
+### Fixed
+- Replaced the Vue parser with node-html-parser to fix a build error.
+
+### Docs
+- Updated README.md
+
+---
+
 ## [0.3.0] - 2025-08-24
 
 ### Added
