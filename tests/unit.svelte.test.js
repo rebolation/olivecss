@@ -27,14 +27,10 @@ describe('App.svelte', () => {
       expect(element).toHaveClass('btn-primary')
       expect(element).toHaveClass('text-center')
       expect(element).toHaveClass('mt-4')
+      expect(element).not.toHaveTextContent('class')
+      expect(element).not.toHaveTextContent('style')
     })
 
-    it('merges with existing class', () => {
-      render(App)
-      const element = document.getElementById('merges_with_existing_class')
-      expect(element).toHaveClass('existing-class')
-      expect(element).toHaveClass('btn-primary')
-    })
   })
 
   describe('style transformation', () => {
@@ -52,6 +48,8 @@ describe('App.svelte', () => {
         marginTop: '10px', 
         padding: '20px' 
       })
+      expect(element).not.toHaveTextContent('class')
+      expect(element).not.toHaveTextContent('style')      
     })
 
     it('merges with existing style', () => {

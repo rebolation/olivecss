@@ -27,6 +27,6 @@
   "devDependencies": {
     "magic-string": "^0.30.18",
     "node-html-parser": "^7.0.1",
-    "olivecss": "0.4.0"
+    "olivecss": "^0.4.0"
   }
 }

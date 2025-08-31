@@ -21,9 +21,9 @@ function OliveReact({ name, theme, features }) {
           <h2>Example:</h2> {/* text-2xl font-bold text-slate-700 mb-6 */}
           <div> {/* bg-gray-100 px-4 py-2 mb-5 rounded-lg */}
             <p className={theme}>{`{/* color:white; */}`}</p> {/* color:white; */}
-            <p>style="background-color: olive; color:white;"</p> {/* mb-5 */}
+            <p>style="color:white;"</p> {/* mb-5 */}
             <p className={theme}>{`{/* text-white */}`}</p> {/* text-white*/}
-            <p>className="bg-lime-700 text-white"</p> {/* mb-5 rounded-sm */}
+            <p>className="text-white"</p> {/* mb-5 rounded-sm */}
             <p className={theme}>{`{/* // double-slash for a comment */}`}</p> {/* text-white */}
             <p>{`{/* double-slash for a comment */}`}</p> {/* // double-slash for a comment */}
           </div>

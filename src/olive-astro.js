@@ -15,6 +15,23 @@ async function loadAstroDeps() {
 }
 
 export async function OliveAstro() {
+  const oliveAstroVite = await OliveAstroVite();
+
+  return {
+    name: "olivecss-astro",
+    hooks: {
+      'astro:config:setup': async ({ updateConfig }) => {
+        updateConfig({
+          vite: {
+            plugins: [oliveAstroVite]
+          }
+        });    
+      },  
+    },
+  };
+}
+
+export async function OliveAstroVite() {
   await loadAstroDeps();  
 
   return {

@@ -1,17 +1,18 @@
 {
   "name": "olivecss",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A lightweight plugin and preprocessor that transforms comments into CSS classes and inline styles.",
   "keywords": [
     "css",
     "comment",
     "react",
     "vue",
-    "preact",
-    "lit",
     "svelte",
-    "solid"
+    "astro",
+    "preact",
+    "solid",
+    "lit"
   ],
   "license": "MIT",
   "author": "Mun Jaehyeon",
@@ -32,5 +33,116 @@
   },
   "files": [
     "src"
-  ]
+  ],
+  "scripts": {
+    "test": "run-p test.unit test.babel",
+    "test.unit": "run-p test.unit.react test.unit.vue test.unit.svelte test.unit.astro test.unit.preact test.unit.solid test.unit.lit test.babel",
+    "test.base": "vitest run --dir tests --reporter=dot",
+    "test.unit.react": "cross-env FRAMEWORK=react npm run test.base -- unit.react",
+    "test.unit.vue": "cross-env FRAMEWORK=vue npm run test.base -- unit.vue",
+    "test.unit.svelte": "cross-env FRAMEWORK=svelte npm run test.base -- unit.svelte",
+    "test.unit.astro": "cross-env FRAMEWORK=astro npm run test.base -- unit.astro",
+    "test.unit.preact": "cross-env FRAMEWORK=preact npm run test.base -- unit.preact",
+    "test.unit.solid": "cross-env FRAMEWORK=solid npm run test.base -- unit.solid",
+    "test.unit.lit": "cross-env FRAMEWORK=lit npm run test.base -- unit.lit",
+    "test.babel": "run-p test.babel.react",
+    "test.babel.react": "npm run test.base -- babel.react",
+    "watch": "run-p watch.unit watch.babel",
+    "watch.base": "vitest watch --dir tests",
+    "watch.unit": "run-p watch.unit.react watch.unit.vue watch.unit.svelte watch.unit.astro watch.unit.preact watch.unit.solid watch.unit.lit watch.babel",
+    "watch.unit.react": "cross-env FRAMEWORK=react npm run watch.base -- unit.react",
+    "watch.unit.vue": "cross-env FRAMEWORK=vue npm run watch.base -- unit.vue",
+    "watch.unit.svelte": "cross-env FRAMEWORK=svelte npm run watch.base -- unit.svelte",
+    "watch.unit.astro": "cross-env FRAMEWORK=astro npm run watch.base -- unit.astro",
+    "watch.unit.preact": "cross-env FRAMEWORK=preact npm run watch.base -- unit.preact",
+    "watch.unit.solid": "cross-env FRAMEWORK=solid npm run watch.base -- unit.solid",
+    "watch.unit.lit": "cross-env FRAMEWORK=lit npm run watch.base -- unit.lit",
+    "watch.babel": "run-p watch.babel.react",
+    "watch.babel.react": "npm run watch.base -- babel.react"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/parser": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/traverse": "^7.28.3",
+    "@open-wc/testing": "^4.0.0",
+    "@preact/preset-vite": "^2.8.1",
+    "@solidjs/testing-library": "^0.8.10",
+    "@sveltejs/vite-plugin-svelte": "^6.1.3",
+    "@testing-library/jest-dom": "^6.7.0",
+    "@testing-library/preact": "^1.0.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/svelte": "^5.2.8",
+    "@vitejs/plugin-react": "^5.0.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/test-utils": "^2.4.6",
+    "astro": "^5.13.4",
+    "babel-plugin-tester": "^12.0.0",
+    "cross-env": "^10.0.0",
+    "jsdom": "^26.1.0",
+    "lit": "^3.1.0",
+    "magic-string": "^0.30.18",
+    "node-html-parser": "^6.1.12",
+    "npm-run-all": "^4.1.5",
+    "preact": "^10.19.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "solid-js": "^1.9.5",
+    "svelte": "^5.38.5",
+    "vite": "^7.1.2",
+    "vite-plugin-solid": "^2.10.1",
+    "vitest": "^3.2.4",
+    "vue": "^3.5.18"
+  },
+  "peerDependencies": {
+    "@babel/parser": "^7.28.3",
+    "@babel/traverse": "^7.28.3",
+    "astro": ">=5",
+    "lit": ">=3",
+    "magic-string": "^0.30.18",
+    "node-html-parser": "^7.0.1",
+    "preact": ">=10",
+    "react": ">=18",
+    "react-dom": ">=18",
+    "solid-js": ">=1.9",
+    "vue": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "@babel/parser": {
+      "optional": true
+    },
+    "@babel/traverse": {
+      "optional": true
+    },
+    "magic-string": {
+      "optional": true
+    },
+    "node-html-parser": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "solid-js": {
+      "optional": true
+    },
+    "preact": {
+      "optional": true
+    },
+    "lit": {
+      "optional": true
+    },
+    "astro": {
+      "optional": true
+    }
+  }
 }

@@ -204,7 +204,7 @@ import react from "@astrojs/react";
 import vue from "@astrojs/vue";
 import vueVite from "@vitejs/plugin-vue";
 import svelte from "@astrojs/svelte";
-import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from 'olivecss'; // prod
+import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from 'olivecss';
 
 const oliveAstro = await OliveAstro();
 const oliveVue = await OliveVue();
@@ -212,6 +212,7 @@ const oliveSvelte = await OliveSvelte();
 
 export default defineConfig({
   integrations: [
+    oliveAstro,
     react({
       babel: {
         plugins: [[ oliveJSX ]],
@@ -224,13 +225,13 @@ export default defineConfig({
   ],
   vite: {
     plugins: [
-      oliveVue,
-      oliveAstro,
+      oliveVue,      
       tailwindcss(),
     ],
   },
 });
 ```
+
 ```js
 // svelte.config.js
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
@@ -313,11 +314,11 @@ Multiple consecutive comments are automatically merged:
 ```
 src/
 ├── olivecss.js                 # Main entry point exporting all modules
-├── olive-jsx.js                # for JSX(React/Preact/Solid) integration
-├── olive-vue.js                # for Vue integration
-├── olive-svelte.js             # for Svelte integration
-├── olive-astro.js              # for Astro integration
-└── olive-lit.js                # for Lit integration
+├── olive-jsx.js                # JSX(React/Preact/Solid) Babel plugin
+├── olive-vue.js                # Vue Vite plugin
+├── olive-svelte.js             # Svelte preprocess plugin
+├── olive-astro.js              # Astro Vite plugin and Astro integration
+└── olive-lit.js                # Lit Vite plugin
 
 demo/                           # Demo
 tests/                          # Test files
@@ -330,13 +331,12 @@ tests/                          # Test files
 
 #### Running Tests
 ```bash
-cd tests
-npm install
 npm run test                    # Run all tests
 npm run test.unit               # Run all unit tests
 npm run test.unit.react         # Run unit tests for React
 npm run test.unit.vue           # Run unit tests for Vue
 npm run test.unit.svelte        # Run unit tests for Svelte
+npm run test.unit.astro         # Run unit tests for Astro
 ...
 
 npm run watch                   # Watch and rerun all tests
@@ -344,6 +344,7 @@ npm run watch.unit              # Watch and rerun all unit tests
 npm run watch.unit.react        # Watch and rerun unit tests for React
 npm run watch.unit.vue          # Watch and rerun unit tests for Vue
 npm run watch.unit.svelte       # Watch and rerun unit tests for Svelte
+npm run watch.unit.astro        # Watch and rerun unit tests for Astro
 ...
 ```
 

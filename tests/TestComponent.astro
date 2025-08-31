@@ -1,0 +1,101 @@
+---
+const title = "Hello Astro!"
+const { 
+  isVisible = false, 
+  isActive = false, 
+  isError = false, 
+  isLoggedIn = false, 
+  isAdmin = false,
+  isHighlighted = false,
+  showDetails = false,
+  items = [],
+  colors = [],
+  users = []
+} = Astro.props;
+---
+
+<!-- // Basic Transformation Tests -->
+<div id="basic_test" class="astro"> <!-- relative min-h-screen text-center mx-0 px-0 flex flex-col -->
+  <p>{title}</p> <!-- relative z-10 text-white text-3xl font-bold py-2 w-full text-center --> <!-- background: #3b5265; -->		
+</div>
+
+<!-- // Class Transformation Tests -->
+<div id="transforms_class_comments_to_class_attribute"> <!-- btn-primary --></div>
+<div id="merges_multiple_class_comments"> <!-- btn-primary --> <!-- text-center --> <!-- mt-4 --></div>
+<div id="merges_with_existing_class" class="existing-class"> <!-- btn-primary --></div>
+
+<!-- // Style Transformation Tests -->
+<div id="transforms_style_comments_to_style_attribute"> <!-- color: red; margin-top: 10px; --></div>
+<div id="merges_multiple_style_comments"> <!-- color: red; --> <!-- margin-top: 10px; --> <!-- padding: 20px; --></div>
+<div id="merges_with_existing_style" style="font-size: 16px;"> <!-- color: red; margin-top: 10px; --></div>
+<div id="handles_complex_style_properties"> <!-- background-color: #f0f0f0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); --></div>
+
+<!-- // Conditional Rendering Tests -->
+{isVisible && (
+  <div id="renders_conditional_content_with_class_when_condition_is_true"> <!-- visible-content --></div>
+)}
+
+{isActive ? (
+  <div id="renders_active_state_when_isActive_is_true"> <!-- active-state --></div>
+) : (
+  <div id="renders_inactive_state_when_isActive_is_false"> <!-- inactive-state --></div>
+)}
+
+{isError && (
+  <div id="renders_conditional_content_with_style_when_condition_is_true"> <!-- color: red; background-color: #fee; --></div>
+)}
+
+<!-- // List Rendering Tests -->
+{items.map((item, index) => (
+  <div id="renders_list_items_with_class_${index}"}>DEBUG <!-- list-item --></div>
+))}
+
+{colors.map((color, index) => (
+  <div id="renders_list_items_with_style_${index}"}> <!-- background-color: red; --></div>
+))}
+
+{items.filter(item => item.active).map((item, index) => (
+  <div id="renders_filtered_list_items_${index}"}> <!-- active-item --></div>
+))}
+
+{users.map(({ id, name, role }) => (
+  <div id="handles_array_destructuring_in_each_blocks_${id}"}> <!-- user-card --></div>
+))}
+
+<!-- // Nested Conditional Rendering Tests -->
+{isLoggedIn ? (
+  <div>
+    {isAdmin ? (
+      <div id="renders_admin_panel_when_logged_in_and_admin"> <!-- admin-panel --></div>
+    ) : (
+      <div id="renders_user_panel_when_logged_in_but_not_admin"> <!-- user-panel --></div>
+    )}
+  </div>
+) : (
+  <div id="renders_login_form_when_not_logged_in"> <!-- login-form --></div>
+)}
+
+<!-- // Combined Class and Style Tests -->
+<div id="applies_both_class_and_style_simultaneously"> <!-- btn-primary --> <!-- color: red; margin-top: 10px; --></div>
+
+<div id="applies_conditional_class_with_existing_style_highlighted" style="font-size: 16px;">
+  {isHighlighted ? (
+    <div> <!-- highlighted-text --></div>
+  ) : (
+    <div> <!-- normal-text --></div>
+  )}
+</div>
+
+{showDetails && (
+  <div id="applies_multiple_comments_in_conditional_rendering"> <!-- detail-container --> <!-- padding: 20px; margin-top: 10px; --></div>
+)}
+
+<!-- // Edge Cases Tests -->
+<div id="ignores_empty_comments"> <!-- btn-primary --> <!-- --></div>
+<div id="renders_elements_without_comments_unchanged">
+  <span>Hello World</span>
+</div>
+
+<!-- // Nested Structure Tests -->
+<div id="applies_class_to_nested_header"> <!-- header-class --></div>
+<div id="applies_class_to_nested_main"> <!-- main-content --></div>

@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 (nothing yet)
 
+---
+
+## [0.4.1] - 2025-08-31
+
+### Fixed
+- Fixed olive-svelte duplicated commentGroups bug
+- Fixed incorrect olive-svelte test cases
+- olive-astro now uses Astro Integration approach
+
+### Chore
+- Merged the package.json from the tests folder into the root olivecss package.json
+- Added environment variable for olive-astro testing in vitest.config.js
+- Updated Astro, Svelte, and Vue tests
+
+### Docs
+- Updated README.md
 
 ---
 

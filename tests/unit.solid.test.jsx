@@ -44,10 +44,6 @@ describe('SolidJS Components', () => {
       const styleElement = screen.getByTestId('merge-style-element');
       expect(styleElement).toBeDefined();
       expect(styleElement).toHaveStyle({ 'font-size': '16px', 'margin-top': '10px' });
-      // expect(styleElement.style.fontSize).toBe('16px');
-      // console.log(styleElement.style);
-      // console.log(styleElement.style.margin);
-      // expect(styleElement.style.marginTop).toBe('10px');
     });
   });
 

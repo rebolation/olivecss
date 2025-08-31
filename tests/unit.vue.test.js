@@ -2,6 +2,11 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import VueTestComponent from './TestComponent.vue'
 
+// 스타일 속성에서 공백을 제거하는 헬퍼 함수
+function normalizeStyle(style) {
+  return style.replace(/\s+/g, '');
+}
+
 describe('VueTestComponent.vue', () => {
   it('renders greeting', () => {
     const wrapper = mount(VueTestComponent, { props: { name: 'World' } })
@@ -41,35 +46,36 @@ describe('VueTestComponent.vue', () => {
       const wrapper = mount(VueTestComponent)
       const element = wrapper.find('#transforms_style_comments_to_style_attribute')
       const style = element.attributes('style')
-      expect(style).toContain('color: red')
-      expect(style).toContain('margin-top: 10px')
+      console.log(style)
+      expect(normalizeStyle(style)).toContain('color:red')
+      expect(normalizeStyle(style)).toContain('margin-top:10px')
     })
 
     it('merges multiple style comments', () => {
       const wrapper = mount(VueTestComponent)
       const element = wrapper.find('#merges_multiple_style_comments')
       const style = element.attributes('style')
-      expect(style).toContain('color: red')
-      expect(style).toContain('margin-top: 10px')
-      expect(style).toContain('padding: 20px')
+      expect(normalizeStyle(style)).toContain('color:red')
+      expect(normalizeStyle(style)).toContain('margin-top:10px')
+      expect(normalizeStyle(style)).toContain('padding:20px')
     })
 
     it('merges with existing style', () => {
       const wrapper = mount(VueTestComponent)
       const element = wrapper.find('#merges_with_existing_style')
       const style = element.attributes('style')
-      expect(style).toContain('font-size: 16px')
-      expect(style).toContain('color: red')
-      expect(style).toContain('margin-top: 10px')
+      expect(normalizeStyle(style)).toContain('font-size:16px')
+      expect(normalizeStyle(style)).toContain('color:red')
+      expect(normalizeStyle(style)).toContain('margin-top:10px')
     })
 
     it('handles complex style properties', () => {
       const wrapper = mount(VueTestComponent)
       const element = wrapper.find('#handles_complex_style_properties')
       const style = element.attributes('style')
-      expect(style).toContain('background-color: rgb(240, 240, 240)')
-      expect(style).toContain('border-radius: 8px')
-      expect(style).toContain('box-shadow: 0 2px 4px rgba(0,0,0,0.1)')
+      expect(normalizeStyle(style)).toContain('background-color:#f0f0f0')
+      expect(normalizeStyle(style)).toContain('border-radius:8px')
+      expect(normalizeStyle(style)).toContain('box-shadow:02px4pxrgba(0,0,0,0.1)')
     })
   })
 
@@ -92,8 +98,8 @@ describe('VueTestComponent.vue', () => {
       const element = wrapper.find('#renders_conditional_content_with_style_when_condition_is_true')
       expect(element.exists()).toBe(true)
       const style = element.attributes('style')
-      expect(style).toContain('color: red')
-      expect(style).toContain('background-color: rgb(255, 238, 238)')
+      expect(normalizeStyle(style)).toContain('color:red')
+      expect(normalizeStyle(style)).toContain('background-color:rgb(255,238,238)')
     })
 
     it('does not render conditional content with style when condition is false', () => {
@@ -139,11 +145,11 @@ describe('VueTestComponent.vue', () => {
       const element2 = wrapper.find('#renders_list_items_with_style_2')
       
       expect(element0.exists()).toBe(true)
-      expect(element0.attributes('style')).toContain('background-color: red')
+      expect(normalizeStyle(element0.attributes('style'))).toContain('background-color:red')
       expect(element1.exists()).toBe(true)
-      expect(element1.attributes('style')).toContain('background-color: red')
+      expect(normalizeStyle(element1.attributes('style'))).toContain('background-color:red')
       expect(element2.exists()).toBe(true)
-      expect(element2.attributes('style')).toContain('background-color: red')
+      expect(normalizeStyle(element2.attributes('style'))).toContain('background-color:red')
     })
 
     it('renders filtered list items', () => {
@@ -187,8 +193,8 @@ describe('VueTestComponent.vue', () => {
       const element = wrapper.find('#applies_both_class_and_style_simultaneously')
       expect(element.classes()).toContain('btn-primary')
       const style = element.attributes('style')
-      expect(style).toContain('color: red')
-      expect(style).toContain('margin-top: 10px')
+      expect(normalizeStyle(style)).toContain('color:red')
+      expect(normalizeStyle(style)).toContain('margin-top:10px')
     })
 
     it('applies conditional class with existing style', () => {
@@ -204,8 +210,8 @@ describe('VueTestComponent.vue', () => {
       expect(element.exists()).toBe(true)
       expect(element.classes()).toContain('detail-container')
       const style = element.attributes('style')
-      expect(style).toContain('padding: 20px')
-      expect(style).toContain('margin-top: 10px')
+      expect(normalizeStyle(style)).toContain('padding:20px')
+      expect(normalizeStyle(style)).toContain('margin-top:10px')
     })
   })
 

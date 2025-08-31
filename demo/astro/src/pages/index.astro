@@ -31,6 +31,11 @@ const features = [
 		<div> <!-- flex-1 relative flex flex-col justify-start items-center py-8 pt-16 -->
 			<div></div> <!-- absolute inset-0 bg-gray-100 bg-gradient-to-t from-teal-900 via-sky-600 to-cyan-100 opacity-70 -->
 			<p>Sea of Astro</p> <!-- relative z-10 text-3xl font-thin text-sky-900 py-8 -->
+			<div>
+				{features.map((item, index) => (
+					<div class="item-${index}"> ${item} <!-- text-white --> </div>
+				))}
+			</div>
 			<div> <!-- relative z-10 flex flex-wrap items-center justify-center max-w-screen-3xl mx-auto gap-8 px-4 -->
 				{islands.map((island, index) => (
 					<div> <!-- zoom: 0.6 -->

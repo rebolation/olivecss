@@ -6,16 +6,20 @@ import vue from "@astrojs/vue";
 import svelte from "@astrojs/svelte";
 import preact from "@astrojs/preact";
 import solid from "@astrojs/solid-js";
-// import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from './olivecss.js'; // dev (vite config in astro.config)
-import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from 'olivecss'; // prod
+
+import oliveJSX from '../../src/olive-jsx.js'; // dev (vite config in astro.config)
+import { OliveAstro } from '../../src/olive-astro.js'; // dev (vite config in astro.config)
+import { OliveVue } from '../../src/olive-vue.js'; // dev (vite config in astro.config)
+import { OliveSvelte } from '../../src/olive-svelte.js'; // dev (vite config in astro.config)
+// import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from 'olivecss'; // prod
 
 const oliveAstro = await OliveAstro();
 const oliveVue = await OliveVue();
 const oliveSvelte = await OliveSvelte();
 
-
 export default defineConfig({
   integrations: [
+    oliveAstro,
     react({
       include: ['**/components/AstroReact.jsx'],
       babel: {
@@ -28,25 +32,14 @@ export default defineConfig({
     }), 
     preact({
       include: ['**/components/AstroPreact.jsx'],
-      // babel: { // not supported
-      //   plugins: [
-      //     [oliveJSX, { framework: 'preact' }],
-      //   ],
-      // },
     }),
     solid({
       include: ['**/components/AstroSolid.jsx'],
-      // babel: { // not supported
-      //   plugins: [
-      //     [oliveJSX, { framework: 'solid' }],
-      //   ],
-      // },
     }),
   ],
   vite: {
     plugins: [
       oliveVue,
-      oliveAstro,
       tailwindcss(),
     ],
   },

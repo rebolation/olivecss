@@ -17,7 +17,7 @@ const code3 = `
             <h1>Hello Olive!</h1> {/* text-5xl font-bold text-green-600 */}
         </div>
         )
-    }`    
+    }`
 const islands = [
 	{ name: 'React Island', theme: 'bg-cyan-600' },
 	{ name: 'Vue Island', theme: 'bg-emerald-500' },
@@ -32,31 +32,26 @@ const features = [
 <Layout>
     <div> <!--  bg-gradient-to-r from-lime-500 via-emerald-600 to-lime-500  -->
 
-        <!-- // 고정 상단바 -->
-        <header> <!-- fixed top-0 left-0 right-0 bg-slate-900 shadow z-50 -->
-            <div> <!-- max-w-5xl mx-auto flex items-center justify-center -->
-                <h1> <!-- text-center p-4 -->
-                    <img alt="Olive CSS" src={logo.src} style="width: 100%; max-width: 480px; opacity: 0.8; " />
-                </h1>
-                <!-- // 
-                <nav> 
-                    <a href="#">Home</a> 
-                    <a href="https://github.com/rebolation/olivecss">GitHub</a> 
+        <header> <!-- fixed top-0 left-0 right-0 bg-white shadow-xl z-50 -->
+            <div> <!-- max-w-7xl mx-auto px-6 py-4 flex items-center justify-between -->
+                <h1> <a href="#"><img alt="Olive CSS" src={logo.src} style="width: 100%; max-width: 220px; " /></a> </h1>
+                <nav> <!-- space-x-6 -->
+                    <a href="https://github.com/rebolation/olivecss">GitHub</a> <!-- text-gray-700 hover:text-green-600 -->
+                    <a href="https://discord.gg/tMrqpjUMJz">Discord</a> <!-- text-gray-700 hover:text-green-600 -->
                 </nav>
-                -->
             </div>
             <div> <!-- w-full --> <!-- background-color: #1E1E1E; -->
                 <div> <!-- min-w-md max-w-md mx-auto px-6 text-thin text-sm -->
                     <Code code={code0} lang="jsx" theme="dark-plus" />
                 </div>
-            </div>
+            </div>            
         </header>
 
         <!-- // 메인 영역 -->
         <main> <!-- pt-32 -->
 
             <!-- // Hero 섹션 -->
-            <section> <!-- relative text-center mt-6 px-30 py-50 overflow-hidden -->
+            <section> <!-- relative text-center mt-1 px-30 py-50 overflow-hidden -->
                 <div></div> <!-- absolute inset-0 max-w-5xl lg:mx-auto mx-8 my-18 rounded-4xl border-3 border-dashed border-white -->
                 <div> <!-- relative z-10 space-y-16 text-white -->
                     <h2>For Readable HTML</h2> <!-- text-4xl md:text-6xl font-extrabold -->
@@ -164,18 +159,21 @@ const features = [
             <div> <!-- bg-gradient-to-r from-lime-400 via-emerald-500 to-lime-400 text-white -->
                 <div> <!-- max-w-5xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 -->
                     <div>
-                        <h4>Source</h4> <!-- text-lg font-semibold mb-3 -->
+                        <h4>Resources</h4> <!-- text-lg font-semibold mb-3 -->
                         <ul> <!-- space-y-2 text-sm -->
                             <li>
                                 <a href="https://github.com/rebolation/olivecss">GitHub</a> <!-- hover:underline -->
                             </li>
+                            <li>
+                                <a href="https://www.npmjs.com/package/olivecss">NPM</a> <!-- hover:underline -->
+                            </li>
                         </ul>
                     </div>
                     <div>
-                        <h4>Contact</h4> <!-- text-lg font-semibold mb-3 -->
+                        <h4>Community</h4> <!-- text-lg font-semibold mb-3 -->
                         <ul> <!-- space-y-2 text-sm -->
                             <li>
-                                <a href="mailto:rebolation@naver.com">Email</a> <!-- hover:underline -->
+                                <a href="https://discord.gg/tMrqpjUMJz">Discord</a> <!-- hover:underline -->
                             </li>
                         </ul>
                     </div>

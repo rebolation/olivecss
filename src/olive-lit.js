@@ -35,7 +35,7 @@ export async function OliveLit() {
   return {
     name: "vite-plugin-olivecss-lit",
     enforce: "pre",
-    async transform(source, id) {
+    transform(source, id) {
       if (!id.endsWith(".js") && !id.endsWith(".ts")) return null;
       if (!source.includes("html`")) return null;
 
