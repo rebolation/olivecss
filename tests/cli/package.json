@@ -1,0 +1,31 @@
+{
+  "name": "olivecss-cli-tests",
+  "version": "1.0.0",
+  "description": "OliveCSS CLI 보안 테스트",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "test:security": "vitest run cli-path-traversal.test.js",
+    "test:security:watch": "vitest watch cli-path-traversal.test.js"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4"
+  },
+  "keywords": [
+    "olivecss",
+    "cli",
+    "security",
+    "path-traversal",
+    "testing",
+    "vitest"
+  ],
+  "author": "OliveCSS Team",
+  "license": "MIT"
+}
+
+

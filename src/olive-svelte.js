@@ -72,7 +72,7 @@ export async function OliveSvelte() {
         commentGroups.forEach(({ target, comments }) => {
           const newAttrs = mergeComments(comments);
 
-          console.log("🐞 newAttrs: ", newAttrs);
+          // console.log("🐞 newAttrs: ", newAttrs);
 
           // 👇 The core fix: Get existing attribute values and merge them
           let allClasses = '';

@@ -10,101 +10,176 @@
 </p>
 
 <p align="center">
-  A lightweight package that transforms comments into CSS classes and inline styles.
+  // a styling tool
 </p>
 
----
 
 
 ```html
-<div>🫒</div> <!-- this_is_a_delicious_olive -->
+<div>olivecss</div> <!-- olive_is_delicious text-4xl -->
 ```
 ...results in the following:
 ```html
-<div class="this_is_a_delicious_olive">🫒</div>
+<div class="olive_is_delicious text-4xl">olivecss</div>
 ```
 
-[Demo](https://rebolation.github.io/olivecss.pages) (created with OliveCSS)
+[Demo](https://rebolation.github.io/olivecss.pages) (created with Olive CSS)
 
 
 
 ## Overview
-
-Use **comments** to add CSS, making your HTML **cleaner** and **easier to read**.
-
-OliveCSS automatically converts your comments into `className`/`class` attributes and `style` properties, keeping your code tidy and maintainable across modern frameworks.
+OliveCSS is an innovative tool that uses comments to simplify styling.
+It automatically converts class names or style declarations written within comments into actual class or style attributes during the build process.
+This approach keeps your codebase cleaner and makes maintenance easier.
 
 
 
 ## Features
 
-- **Automatic conversion** of CSS comments into `className`/`class` and inline `style`
-- **Supports major frameworks**: React, Vue, Svelte, Astro, Solid, Preact, and Lit
-- **Easy to integrate** into any project
+- **Supports major frameworks**: React, Vue, Svelte, Astro, Solid, Preact, and Lit.
+- **Provides a CLI tool**: HTML, Jekyll
 
 
 
 ## How it works
 
-#### 🫒 1. **You write comments**
+🫒 **1. You write comments**
 
-Write your CSS rules in comments next to the elements you want to style in your components. This way, **classes and styles are removed** (moved into comments) from elements, giving you **cleaner HTML tags**.
+Write your CSS rules in comments next to the elements you want to style in your components. This way, classes and styles are removed (moved into comments) from elements, giving you cleaner HTML tags.
 
-#### 🫒 2. **OliveCSS converts**
+🫒 **2. Olive CSS converts**
 
-**At build time**, OliveCSS parses your code and **automatically converts** detected CSS comments into the appropriate `className/class` attributes and inline `style` properties.
+Olive CSS parses your code and automatically converts detected CSS comments into the appropriate `className/class` attributes and inline `style` properties.
 
-#### 🫒 3. **You get clean code**
+🫒 **3. You get clean code**
 
 Your HTML, JSX, Vue, or Svelte code now contains proper classes and styles, without manually editing attributes or creating separate CSS files.
 
 
 
-## Example
+## React Example
 
-🫒 You could write:
 ```jsx
 export default function App() {
   return (
     <div>
-      <h1>Hello OliveCSS!</h1> {/* text-xl font-bold */} {/* color: olive; */}
+      <h1>Hello Olive CSS!</h1> {/* text-xl font-bold */} {/* color: olive; */}
     </div>
   );
 }
 ```
-which would become:
+would become:
 ```jsx
-export default function App() {
-  return (
-    <div>
-      <h1 className="text-xl font-bold" style={{ color: "olive" }}>Hello OliveCSS!</h1>
-    </div>
-  );
-}
-```
-
-🫒 Alternatively, you could write:
-```html
-<template>
-  <h1>Hello OliveCSS!</h1> <!-- text-xl font-bold --> <!-- color: olive; -->
-</template>
-```
-which would become:
-```html
-<template>
-  <h1 class="text-xl font-bold" style="color: olive;">Hello OliveCSS!</h1>
-</template>
+...
+      <h1 className="text-xl font-bold" style={{ color: "olive" }}>Hello Olive CSS!</h1>
+...
 ```
 
 
 
-## Usage (with Vite)
+## 🫒 CLI tool Basic Example
 
-OliveCSS integrates seamlessly with popular frameworks using a minimal setup. The example configurations are shown below. 
+The `demo/cli/basic/` directory shows a simple HTML example using Olive CSS CLI.
+
+#### Features:
+- Simple HTML structure with Olive CSS comments
+- Auto-detection of source directory (`src_olive`)
+- Live reload web server
+- Tailwind CSS support (CDN)
+
+#### Usage:
+1. Navigate to the `basic/` directory
+2. Run `olive` command
+3. Open `http://localhost:3000` in your browser
+4. Edit files in `src_olive/` directory and see changes in real-time
+
+#### Directory Structure:
+```
+demo/cli/basic/
+└── src_olive/          # Source directory (watched by Olive CSS)
+    ├── index.html      # Main HTML file with Olive CSS comments
+    └── ...
+```
+
+
+
+## 🫒 CLI tool Jekyll Example
+
+The `demo/cli/jekyll/` directory demonstrates how to integrate Olive CSS with Jekyll static site generator.
+
+#### Features:
+- Jekyll site with Olive CSS integration
+- Custom layouts and includes
+- Blog post support
+- SASS support
+- Tailwind CSS support (CDN)
+
+
+#### Usage:
+1. Navigate to the `jekyll/` directory
+2. Run `olive jekyll` to watch Olive CSS files *(ruby, bundle, jekyll, and minima is needed)*
+3. Open `http://localhost:3000` in your browser
+4. Edit files in `olive__layouts/`, `olive__includes/`, `olive__posts/`, `olive__sass/` directories and see changes in real-time
+
+#### Directory Structure:
+```
+demo/cli/jekyll/
+├── olive__layouts/     # Custom layouts from minima (watched by Olive CSS)
+├── olive__includes/    # Custom includes from minima (watched by Olive CSS)
+├── olive__posts/       # Blog posts (watched by Olive CSS)
+├── olive__sass/        # SASS files from minima (watched by Olive CSS)
+├── _site/              # Generated Jekyll site
+└── ...
+```
+
+#### How it works:
+- Olive CSS watches files in `olive__*` directories
+- Jekyll processes the Olive CSS output and generates the final site
+- Both tools work together to provide live reload and static site generation
+
+
+
+## Usage: CLI tool
+
+```bash
+npm install -g olivecss
+```
+#### Basic mode
+```bash
+olive [directories]
+```
+`olive` monitors directories with specific prefixes or suffixes, performs real-time transformation, and saves the results to directories with those prefixes or suffixes removed.
+
+- prefix : `olive_` or `_`
+- suffixes : `_olive` or `_`
+
+If no directory argument is given, `olive` will auto-detect default directory in your project root.
+
+- default directory : `src` with prefixes or suffixes (e.g., `olive_src`)
+
+A web server with built-in live reload functionality runs at: http://localhost:3000
+
+#### Jekyll mode
+```bash
+olive jekyll
+```
+`olive` monitors the `_includes`, `_layouts`, `_posts`, and `_sass` directories with specified prefixes or suffixes (e.g., `olive__includes`), and works alongside the Jekyll server to serve the transformed output to the browser.
+Similarly, a web server with built-in live reload functionality runs at: http://localhost:3000.
+
+To customize the Jekyll Minima theme, run `bundle info --path minima` to get the path of the theme, then copy `_includes`, `_layouts`, and `_sass` from that location and rename them as needed
+```bash
+bundle info --path minima
+```
+
+
+
+## Usage: Plugins
+
+Olive CSS integrates seamlessly with popular frameworks using a minimal setup. The example configurations are shown below. 
 
 That's all you need; no extra configuration is needed in your components.
 
-#### 🫒 React / Preact / Solid + Tailwind
+#### 🫒 React + Tailwind
 
 ```bash
 npm install --save-dev olivecss
@@ -112,8 +187,6 @@ npm install --save-dev olivecss
 
 ```js
 // vite.config.js
-// import preact from "@preact/preset-vite";
-// import solid from 'vite-plugin-solid'
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react"; 
 import tailwind from "@tailwindcss/vite";
@@ -121,14 +194,48 @@ import olivecss from "olivecss";
 
 export default defineConfig({
   plugins: [
-    react({ // preact({  solid ({
+    react({
       babel: {
-        plugins: [[ olivecss ]], // plugins: [[ olivecss, { framework: 'solid' } ]],
+        plugins: [[ olivecss ]],
       },
     }),
     tailwind(),
   ],
 });
+```
+
+#### 🫒 Preact + Tailwind
+
+```bash
+npm install --save-dev olivecss
+```
+
+```js
+// vite.config.js
+import preact from "@preact/preset-vite";
+...
+  plugins: [
+    preact({
+      babel: {
+        plugins: [[ olivecss ]],
+...
+```
+
+#### 🫒 Solid + Tailwind
+
+```bash
+npm install --save-dev olivecss
+```
+
+```js
+// vite.config.js
+import solid from 'vite-plugin-solid'
+...
+  plugins: [
+    solid ({
+      babel: {
+        plugins: [[ olivecss, { framework: 'solid' } ]],
+...
 ```
 
 #### 🫒 Vue + Tailwind
@@ -264,6 +371,7 @@ export default defineConfig({
 ```
 
 
+
 ## Comment Syntax
 
 #### CSS Classes
@@ -313,18 +421,28 @@ Multiple consecutive comments are automatically merged:
 #### Project Structure
 ```
 src/
-├── olivecss.js                 # Main entry point exporting all modules
+├── cli                         # Cli tool for HTML
+│   ├── cli.js                  # Main entry point (Basic mode)
+│   ├── cli-jekyll.js           # Jekyll mode
+│   ├── cli-utils.js            # Color utility
+│   ├── cli-validators.js       # Validators for security
+│   ├── cli-watcher.js          # Watcher (feat. chokidar)
+│   ├── cli-webserver.js        # Webserver (feat. sirv)
+│   └── cli-websocektserver.js  # WebsocketServer
+├── olivecss.js                 # Main entry point exporting all plugin modules
 ├── olive-jsx.js                # JSX(React/Preact/Solid) Babel plugin
 ├── olive-vue.js                # Vue Vite plugin
 ├── olive-svelte.js             # Svelte preprocess plugin
 ├── olive-astro.js              # Astro Vite plugin and Astro integration
-└── olive-lit.js                # Lit Vite plugin
+├── olive-lit.js                # Lit Vite plugin
+└── olive-html.js               # HTML converter
 
-demo/                           # Demo
+demo/                           # Demo projects
 tests/                          # Test files
 ```
 
 #### Notes
+- `cli.js` is the central entry point for `olive` command.
 - `olivecss.js` is the central entry point for all plugins and preprocessors.
 - Each framework-specific file contains the corresponding plugin or preprocessor implementation.
 - `demo/` and `tests/` help you verify and experiment with OliveCSS features.
@@ -353,12 +471,16 @@ npm run watch.unit.astro        # Watch and rerun unit tests for Astro
 ## Dependencies
 Depending on your usage environment, this project may depend on the following packages:
 
-- [magic-string](https://www.npmjs.com/package/magic-string) — MIT License
-- [@babel/traverse](https://www.npmjs.com/package/@babel/traverse) — MIT License
-- [@babel/parser](https://www.npmjs.com/package/@babel/parser) — MIT License
-- [@vue/compiler-sfc](https://www.npmjs.com/package/@vue/compiler-sfc) — MIT License
-- [svelte/compiler](https://www.npmjs.com/package/svelte) — MIT License
-- [node-html-parser](https://www.npmjs.com/package/node-html-parser) — MIT License
+- [magic-string](https://www.npmjs.com/package/magic-string) - MIT License
+- [@babel/traverse](https://www.npmjs.com/package/@babel/traverse) - MIT License
+- [@babel/parser](https://www.npmjs.com/package/@babel/parser) - MIT License
+- [@vue/compiler-sfc](https://www.npmjs.com/package/@vue/compiler-sfc) - MIT License
+- [svelte/compiler](https://www.npmjs.com/package/svelte) - MIT License
+- [node-html-parser](https://www.npmjs.com/package/node-html-parser) - MIT License
+
+Olive CSS CLI tool for HTML depend on the following packages:
+- [chokidar](https://www.npmjs.com/package/chokidar) - MIT License
+- [sirv](https://www.npmjs.com/package/sirv) - MIT License
 
 
 

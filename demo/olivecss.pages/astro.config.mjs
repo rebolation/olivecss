@@ -16,6 +16,7 @@ export default defineConfig({
   site: 'https://rebolation.github.io',
   base: '/olivecss.pages/',
   integrations: [
+    oliveAstro,
     react({
       babel: {
         plugins: [[ oliveJSX, { framework: 'react' } ]],
@@ -28,8 +29,7 @@ export default defineConfig({
   ],
   vite: {
     plugins: [
-      oliveVue,
-      oliveAstro,
+      oliveVue,      
       tailwindcss(),
     ],
   },

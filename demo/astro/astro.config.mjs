@@ -7,10 +7,7 @@ import svelte from "@astrojs/svelte";
 import preact from "@astrojs/preact";
 import solid from "@astrojs/solid-js";
 
-import oliveJSX from '../../src/olive-jsx.js'; // dev (vite config in astro.config)
-import { OliveAstro } from '../../src/olive-astro.js'; // dev (vite config in astro.config)
-import { OliveVue } from '../../src/olive-vue.js'; // dev (vite config in astro.config)
-import { OliveSvelte } from '../../src/olive-svelte.js'; // dev (vite config in astro.config)
+import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from '../../src/olivecss.js'; // dev (vite config in astro.config)
 // import oliveJSX, { OliveAstro, OliveVue, OliveSvelte } from 'olivecss'; // prod
 
 const oliveAstro = await OliveAstro();
