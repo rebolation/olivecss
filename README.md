@@ -481,7 +481,7 @@ Depending on your usage environment, this project may depend on the following pa
 Olive CSS CLI tool for HTML depend on the following packages:
 - [chokidar](https://www.npmjs.com/package/chokidar) - MIT License
 - [sirv](https://www.npmjs.com/package/sirv) - MIT License
-
+- [ws](https://www.npmjs.com/package/ws) - MIT License
 
 
 ## Changelog

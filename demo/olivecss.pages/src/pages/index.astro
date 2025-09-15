@@ -8,16 +8,10 @@ import "../index.css";
 
 import logo from '../logo-transparent.png';
 const code0 = `<p>© 2025 Mun</p> {/* background-color: #1E1E1E; */}`
-const code1 = `<p>🫒</p> {/* this_is_a_delicious_olive */}`
-const code2 = `<p class='this_is_not_a_delicious_olive'>🫒</p>`;
-const code3 = `
-    export default function App() {
-        return (
-        <div>
-            <h1>Hello Olive!</h1> {/* text-5xl font-bold text-green-600 */}
-        </div>
-        )
-    }`
+const code1 = `<p>Olive</p> {/* text-white text-4xl py-2 px-4 */}`
+const code2 = `<p class='text-white text-4xl py-2 px-4 '>Olive</p>`;
+const code3 = `<h1>Hello Olive!</h1> {/* bg-gray-900 text-5xl font-bold text-green-600 */}`
+const code4 = `<h1 class="bg-gray-900 text-5xl font-bold text-green-600">Hello Olive!</h1>`
 const islands = [
 	{ name: 'React Island', theme: 'bg-cyan-600' },
 	{ name: 'Vue Island', theme: 'bg-emerald-500' },
@@ -30,84 +24,193 @@ const features = [
 ]
 ---
 <Layout>
-    <div> <!--  bg-gradient-to-r from-lime-500 via-emerald-600 to-lime-500  -->
+    <div> <!-- bg-gradient-to-r from-lime-500 via-emerald-600 to-lime-500  -->
 
-        <header> <!-- fixed top-0 left-0 right-0 bg-white shadow-xl z-50 -->
-            <div> <!-- max-w-7xl mx-auto px-6 py-4 flex items-center justify-between -->
-                <h1> <a href="#"><img alt="Olive CSS" src={logo.src} style="width: 100%; max-width: 220px; " /></a> </h1>
-                <nav> <!-- space-x-6 -->
+        <header id="main-header"> <!-- fixed top-0 left-0 right-0 bg-white shadow-xl z-50 -->
+
+            <div id="container"> <!-- max-w-7xl mx-auto px-6 -->
+
+                <!-- // 링크 -->
+                <nav> <!-- flex justify-center space-x-6 mt-6 -->
                     <a href="https://github.com/rebolation/olivecss">GitHub</a> <!-- text-gray-700 hover:text-green-600 -->
+                    <a href="https://www.npmjs.com/package/olivecss">NPM</a> <!-- text-gray-700 hover:text-green-600 -->
                     <a href="https://discord.gg/tMrqpjUMJz">Discord</a> <!-- text-gray-700 hover:text-green-600 -->
                 </nav>
+
+                <!-- // 로고 -->
+                <div id="logo"> <!-- rounded-lg pt-4 pb-6 mx-auto -->
+                    <div> <!-- min-h-[100px] flex items-center justify-center rounded text-4xl text-lime-400 -->
+                        <p id="live-preview"> <!-- transition-all duration-300 ease-out rotate-y-45 -->OLIVE CSS</p> <!-- font-family: sans; font-weight: bold; padding: 6px 20px 14px 20px; border-radius: 10px; -->
+                    </div>
+                </div>                
             </div>
-            <div> <!-- w-full --> <!-- background-color: #1E1E1E; -->
-                <div> <!-- min-w-md max-w-md mx-auto px-6 text-thin text-sm -->
-                    <Code code={code0} lang="jsx" theme="dark-plus" />
-                </div>
-            </div>            
-        </header>
 
-        <!-- // 메인 영역 -->
-        <main> <!-- pt-32 -->
-
-            <!-- // Hero 섹션 -->
-            <section> <!-- relative text-center mt-1 px-30 py-50 overflow-hidden -->
-                <div></div> <!-- absolute inset-0 max-w-5xl lg:mx-auto mx-8 my-18 rounded-4xl border-3 border-dashed border-white -->
-                <div> <!-- relative z-10 space-y-16 text-white -->
-                    <h2>For Readable HTML</h2> <!-- text-4xl md:text-6xl font-extrabold -->
-                    <div> <!-- max-w-xl mx-auto rounded-lg p-8 flex flex-col space-y-2 gap-1 --> <!-- background-color: #1E1E1E; -->
-                        <p><Code code={code1} lang="jsx" theme="dark-plus" /></p>
-                        <p>vs</p>
-                        <p><Code code={code2} lang="jsx" theme="dark-plus" /></p>
-                    </div>
-                    <div> <!-- flex justify-center space-x-4 -->
-                        <a href="https://www.npmjs.com/package/olivecss">npm i -D olivecss</a> <!-- bg-white text-green-600 font-semibold px-6 py-3 rounded-xl shadow hover:bg-gray-100 transition -->
-                    </div>
-                </div>
-            </section>        
-
-            <!-- //   -->
-            <div> <!-- max-w-5xl mx-auto space-y-3 bg-gray-100 p-3 mb-12 rounded-4xl -->
-                <!-- // OliveCSS 예제 섹션  -->
-                <section>
-                    <div> <!-- pb-6 bg-gray-900 text-gray-100 rounded-t-3xl shadow overflow-hidden -->
-                        <div>Example.jsx</div> <!-- bg-gray-800 px-4 py-2 text-sm text-green-400 font-mono -->
-                        <Code code={code3} lang="js" theme="dark-plus" />                        
-                    </div>
-
-                    <!-- // 미리보기 영역  -->
-                    <div> <!-- flex justify-center -->
-                        <div> <!-- bg-white rounded-b-2xl shadow-lg py-8 px-6 text-center w-full -->
-                            <h1>Hello Olive!</h1> <!-- text-5xl font-bold text-green-600 -->
-                            <div> <!-- mt-8 border-2 border-dashed border-gray-400 rounded-lg p-4 relative group cursor-pointer -->
-                                <span>How it works</span> <!-- text-md block group-hover:opacity-0 transition-opacity duration-300 -->
-                                <span>At build time, OliveCSS parses your code and automatically converts detected CSS comments into class and styles.</span> <!-- absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-2 text-md text-gray-700 -->
+            <!-- // 코드 영역 -->
+            <div id="codearea"> <!-- w-full bg-gray-900 -->
+                <div> <!-- mx-auto px-6 text-thin text-sm -->
+                    <div> <!-- text-center bg-gray-900 rounded-lg p-2 -->
+                        <div> <!-- font-mono text-md -->
+                            <div id="code-display"> <!-- text-gray-300 -->
+                                <span>&lt;</span><!-- text-gray-500 --><span>p</span><!-- text-blue-400 --><span>&gt;</span><!-- text-gray-500 -->
+                                <span>OLIVE CSS</span> <!-- text-white -->
+                                <span>&lt;/</span><!-- text-gray-500 --><span>p</span><!-- text-blue-400 --><span>&gt;</span><!-- text-gray-500 -->
+                                <span id="typing-cursor"> <!-- animate-pulse -->|</span>
                             </div>
                         </div>
                     </div>
-                </section>
-
-                <!-- // 2컬럼: 특징  -->
-                <section> <!-- grid grid-cols-1 md:grid-cols-2 gap-3 -->
-                    <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
-                        <h3>Vite</h3> <!-- text-xl font-semibold mb-2 -->
-                        <p>OliveCSS works well with Vite.</p> <!-- text-gray-600 mb-4 -->
-                    </div>
-                    <div> <!-- bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition -->
-                        <h3>Tailwind</h3> <!-- text-xl font-semibold mb-2 -->
-                        <p>OliveCSS also works well with Tailwind.</p> <!-- text-gray-600 mb-4 -->
-                    </div>
-                </section>
-
+                </div>
             </div>
 
-            <!-- // Island 섹션 -->
+        </header>
+
+        <!-- // 메인 영역 -->
+        <main> <!-- pt-80 p-4 -->
+
+            <!-- // 개요  -->
+            <div> <!-- max-w-5xl mx-auto space-y-3 mb-12 rounded-4xl -->
+                <section> <!-- text-center text-green-200 text-xl -->
+                    <div> <!-- pb-6 rounded-3xl shadow overflow-hidden flex flex-col gap-6 --> <!-- background: #0006; -->
+                        <div> <!-- max-w-5xl mx-auto p-20 -->
+                            <p># Overview</p> <!-- text-3xl pb-6 -->
+                            <p>OliveCSS is an innovative tool that uses comments to simplify styling.</p>
+                            <p>It automatically converts class names or style declarations written within comments into actual class or style attributes during the build process.</p>
+                            <p>This approach keeps your codebase cleaner and makes maintenance easier.</p>
+                        </div> <!-- py-30 -->
+                    </div>                
+                </section>
+            </div>
+
+            <div> <!-- max-w-5xl mx-auto space-y-3 bg-gray-100 p-3 mb-12 rounded-4xl -->
+
+                <!-- // 작동 원리 -->
+                <section>
+                    <div> <!-- rounded-b-2xl shadow-lg py-4 px-6 text-center w-full -->
+                        <div> <!-- border-2 border-dashed border-gray-400 rounded-lg p-4 relative group cursor-pointer -->
+                            <span>How it works</span> <!-- text-md block group-hover:opacity-0 transition-opacity duration-300 -->
+                            <span>OliveCSS automatically converts comments into class and styles, at build time.</span> <!-- absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-2 text-md text-gray-700 -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- // 플러그인 예제 섹션  -->
+                <section> <!-- text-center -->
+                    <div> <!-- pb-6 text-gray-100 rounded-3xl shadow overflow-hidden flex flex-col gap-6 --> <!-- background: #1E1E1E -->
+                        <div>Example_with_tailwind.jsx</div> <!-- bg-gray-800 px-4 py-2 text-sm text-green-400 font-mono -->
+                        <Code code={code3} lang="js" theme="dark-plus" />
+                        <p>👇</p>
+                        <Code code={code4} lang="js" theme="dark-plus" />
+                        <p>👇</p>
+                        <h1>Hello Olive!</h1> <!-- text-5xl font-bold text-green-600 mb-4 -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- // 특징 -->
+            <div> <!-- max-w-5xl mx-auto space-y-3 mb-12 rounded-4xl -->
+                <section> <!-- text-center text-green-200 text-xl -->
+                    <div> <!-- pb-6 rounded-3xl shadow overflow-hidden flex flex-col gap-6 --> <!-- background: #0006; -->
+                        <div> <!-- max-w-5xl mx-auto p-20 -->
+                            <p># Features</p> <!-- text-3xl pb-6 -->
+                            <p>Supports major frameworks: 
+                                <span>React, Vue, Svelte, Astro, Solid, Preact, and Lit.</span> <!-- text-yellow-100 -->
+                            </p>
+                            <p>Provides a CLI tool: 
+                                <span>HTML, Jekyll</span> <!-- text-yellow-100 -->
+                            </p>
+                        </div> <!-- py-30 -->
+                    </div>                
+                </section>
+            </div>
+
+
+            <!-- // CLI tool  -->
+            <div> <!-- max-w-5xl mx-auto space-y-3 bg-gray-100 p-3 mb-12 rounded-4xl -->            
+                <section> <!-- p-12 -->
+                    <p>
+                        <span>CLI tool</span><!-- font-bold -->
+                        supports HTML, Jekyll, ...
+                    </p> <!-- text-3xl font-thin text-sky-900 py-8 -->                
+                    <div> <!-- mb-12 -->
+                        <!-- bg-gray-900 text-green-200 rounded p-4 text-sm mb-2 font-mono -->
+                        <p><code class="">npm install -g olivecss</code></p>
+                    </div>
+                    <h4> 
+                        <!-- text-lg font-semibold text-green-600 -->
+                        <span class="">Basic mode</span>
+                    </h4>
+                    <div> <!-- p-8 -->
+                        <div>
+                            <!-- bg-gray-900 text-green-200 rounded p-4 text-sm mb-8 font-mono -->
+                            <code>olive [directories]</code>
+                        </div>
+                        <p>
+                            <!-- text-gray-800 mb-2 -->
+                            <span>
+                                <code>olive</code> monitors directories with specific prefixes or suffixes, performs real-time transformation, and saves the results to directories with those prefixes or suffixes removed.
+                            </span>
+                        </p>
+                        <ul> <!-- list-disc pl-6 mb-2 -->
+                            <li>
+                                <!-- text-gray-700 -->
+                                <span>prefix : <code>olive_</code> or <code>_</code></span>
+                            </li>
+                            <li>
+                                <!-- text-gray-700 -->
+                                <span>suffixes : <code>_olive</code> or <code>_</code></span>
+                            </li>
+                        </ul>
+                        <p> <!-- text-gray-800 mb-2 -->
+                            If no directory argument is given, <code>olive</code> will auto-detect default directory in your project root.
+                        </p>
+                        <ul> <!-- list-disc pl-6 mb-2 -->
+                            <li>
+                                <!-- text-gray-700 -->
+                                <span>default directory : <code>src</code> with prefixes or suffixes (e.g., <code>olive_src</code>)</span>
+                            </li>
+                        </ul>
+                        <p> <!-- text-gray-800 mb-2 -->
+                            A web server with built-in live reload functionality runs at: <a href="http://localhost:3000" class="text-blue-600 underline">http://localhost:3000</a>
+                        </p>
+                    </div>
+                    <h4>
+                        <!-- text-lg font-semibold text-green-600 -->
+                        <span>Jekyll mode</span>
+                    </h4>
+                    <div> <!-- p-8 -->
+                        <div>
+                            <!-- bg-gray-900 text-green-200 rounded p-4 text-sm mb-8 font-mono -->
+                            <code>olive jekyll</code>
+                        </div>
+                        <p> <!-- text-gray-800 mb-2 -->
+                            <code>olive</code> monitors the <code>_includes</code>, <code>_layouts</code>, <code>_posts</code>, and <code>_sass</code> directories with specified prefixes or suffixes (e.g., <code>olive__includes</code>), and works alongside the Jekyll server to serve the transformed output to the browser.<br/>
+                            Similarly, a web server with built-in live reload functionality runs at: <a href="http://localhost:3000" class="text-blue-600 underline">http://localhost:3000</a>.
+                        </p>
+                        <p> <!-- text-gray-800 mb-2 -->
+                            To customize the Jekyll Minima theme, run <code>bundle info --path minima</code> to get the path of the theme, then copy <code>_includes</code>, <code>_layouts</code>, and <code>_sass</code> from that location and rename them as needed
+                        </p>
+                        <div>
+                            <!-- bg-gray-900 text-green-200 rounded p-4 text-sm my-8 font-mono -->
+                            <code>bundle info --path minima</code>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- // PLUGINS - Island 섹션 -->
             <section id="astro"> <!-- relative text-center px-30 -mt-12 pt-12 pb-24 overflow-hidden -->
                 <div> <!-- absolute inset-0 max-w-5xl lg:mx-auto mx-8 my-12 rounded-4xl border-3 border-dashed border-white -->
                     <div></div> <!-- absolute inset-5 bg-gray-100 bg-gradient-to-t from-teal-900 via-sky-600 to-cyan-100 opacity-35 rounded-4xl -->
                 </div>
                 <div> <!-- flex-1 relative flex flex-col justify-start items-center py-8 -->
-                    <p>Supports React, Vue, Svelte, Astro, Solid, Preact, Lit, ...</p> <!-- relative z-10 text-4xl font-thin text-sky-900 py-12 -->
+                    <p>
+                        <span>PLUGINS</span><!-- font-bold -->
+                        supports React, Vue, Svelte, Astro, Solid, Preact, Lit, ...
+                    </p> <!-- relative z-10 text-3xl font-thin text-sky-900 py-12 -->
+                    <div> <!-- mb-22 -->                        
+                        <code class="">npm install -D olivecss</code> <!-- bg-gray-900 text-green-200 rounded p-4 text-sm mb-2 font-mono -->
+                        <a href="https://github.com/rebolation/olivecss?tab=readme-ov-file#usage-plugins">Documents</a> <!-- bg-blue-100 text-sky-900 rounded p-4 text-sm mb-2 font-bold font-mono -->
+                    </div>
+
                     <div> <!-- flex flex-col xl:flex-row items-center justify-center gap-8 -->
                         {islands.map((island, index) => (
                             <div> <!-- zoom: 0.6 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-3xl z-10 hover:z-20 -->
@@ -120,7 +223,7 @@ const features = [
                 </div>
             </section>
 
-            <section id="astro"> 
+            <section> 
                 <div> <!-- max-w-5xl mx-auto space-y-3 bg-gray-100 p-3 mb-12 rounded-4xl -->
                     <!-- // 2컬럼: 특징  -->
                     <section> <!-- grid grid-cols-1 md:grid-cols-2 gap-3 -->
@@ -154,6 +257,18 @@ const features = [
             </section>
         </main>
 
+        <!-- // install  -->
+        <div> <!-- max-w-5xl mx-auto space-y-3 mb-12 rounded-4xl -->
+            <section> <!-- text-center text-green-200 text-xl -->
+                <div> <!-- pb-6 rounded-3xl shadow overflow-hidden flex flex-col gap-6 --> <!-- background: #0006; -->
+                    <div> <!-- max-w-5xl mx-auto my-16 space-y-3 text-left -->
+                        <p>&gt; npm install -g olivecss (CLI Tool)</p>
+                        <p>&gt; npm install -D olivecss (Plugin)</p>
+                    </div>
+                </div>                
+            </section>
+        </div>        
+
         <!-- // 푸터  -->
         <footer>
             <div> <!-- bg-gradient-to-r from-lime-400 via-emerald-500 to-lime-400 text-white -->
@@ -184,3 +299,331 @@ const features = [
 
     </div>
 </Layout>
+
+<style>
+    #main-header {
+        transition: all 2s ease-out;
+    }
+
+    #main-header.scrolled {        
+        
+    }
+
+    #main-header.scrolled nav {
+        padding-bottom: 24px;
+    }
+
+    #main-header.scrolled #logo {
+        display: none;
+    }
+
+    #main-header.scrolled #codearea {
+        display: none;
+    }
+
+    /* 
+    #main-header.scrolled {
+        transform: scale(0.5);
+        transform-origin: top center;
+        border-radius: 20px;
+        background: #fffe;
+        max-width: 470px;
+        margin: 12px auto;
+        background: #032e15;
+    }
+    
+    #main-header.scrolled nav {
+        display: none;
+    }
+    
+    #main-header.scrolled #codearea {
+        display: none;
+    }
+    
+    #main-header.scrolled #container {
+        border-radius: 0;
+        padding: 0;
+        width: auto;
+    }
+
+    #main-header.scrolled #logo {
+        padding: 0;
+    }
+    */
+</style>
+
+<script>
+    class TypingDemo {
+        constructor() {
+            this.codeDisplay = document.getElementById('code-display');
+            this.livePreview = document.getElementById('live-preview');
+            this.cursor = document.getElementById('typing-cursor');
+
+            this.typingSteps = [
+                {
+                    text: ' {/* ',
+                    classToAdd: null,
+                    nextStepMarker: null
+                },
+                {
+                    text: 'text-6xl',
+                    classToAdd: 'text-6xl',
+                    nextStepMarker: 'step2'
+                },
+                {
+                    text: ' */}',
+                    classToAdd: null,
+                    nextStepMarker: null
+                },
+                {
+                    text: ' bg-green-950',
+                    classToAdd: 'bg-green-950',
+                    nextStepMarker: null
+                },                
+                {
+                    text: ' tracking-[0.2em]',
+                    classToAdd: 'tracking-[0.2em]',
+                    nextStepMarker: null
+                },
+            ];
+            
+            this.currentStep = 0;
+            this.isTyping = false;
+            
+            // this.init();
+            this.startDemo();
+        }
+        
+        init() {
+            console.log("Initializing auto demo");
+            // 자동으로 데모 시작
+            setTimeout(() => {
+                this.startDemo();
+            }, 1000); // 1초 후 자동 시작
+        }
+        
+        async startDemo() {
+
+            console.log("startDemo called");
+            if (this.isTyping) {
+                console.log("Already typing, returning");
+                return;
+            }
+            
+            console.log("Starting demo...");
+            this.isTyping = true;
+            
+            // 초기 상태로 리셋
+            this.resetDemo();
+            
+            // 초기 상태에서 잠시 대기
+            await this.delay(2000);
+
+            // 각 단계별 타이핑 실행
+            for (let i = 0; i < this.typingSteps.length; i++) {
+                await this.typeStep(this.typingSteps[i], i);
+                if (i === 0 || i === 2) {
+                    await this.delay(300); // 단계 간 대기
+                } else {
+                    await this.delay(700); // 단계 간 대기
+                }
+
+            }
+
+            // 무한 반복을 위해 다시 시작
+            this.isTyping = false;
+            setTimeout(() => {
+                this.startDemo();
+            }, 3000); // 종료 상태에서 잠시 대기
+        }
+        
+        async typeStep(step, stepIndex) {
+            console.log("typeStep called with:", step, "stepIndex:", stepIndex);
+            const text = step.text;
+            const classToAdd = step.classToAdd;
+            
+            // 특정 단계에서는 마커 위치에서 시작
+            if (stepIndex === 3) {
+                this.moveCursorToMarker('step2');
+            }
+            
+            // 타이핑 애니메이션
+            for (let i = 0; i < text.length; i++) {
+                this.addCharacterToCode(text[i], stepIndex);
+                
+                // 주석 타이핑 스텝(0, 2)은 딜레이 없음, 클래스 추가 스텝은 딜레이 있음
+                if (stepIndex === 0 || stepIndex === 2) {
+                    // 주석 부분은 딜레이 없이 빠르게 타이핑
+                    await this.delay(20);
+                } else {
+                    // 클래스 추가 부분은 느리게 타이핑
+                    await this.delay(40);
+                }
+            }
+            
+            // 라이브 프리뷰에 클래스 추가 (classToAdd가 있는 경우만)
+            if (classToAdd) {
+                this.addClassToPreview(classToAdd);
+                console.log("Added class to preview:", classToAdd);
+            }
+            
+            // 다음 단계 마커 추가 (마지막 단계가 아닌 경우)
+            if (step.nextStepMarker) {
+                this.addNextStepMarker(step.nextStepMarker);
+            }
+        }
+        
+        addCharacterToCode(char, stepIndex) {
+            // 커서 앞에 문자 삽입
+            if (!this.cursor) {
+                console.error("Cursor not found!");
+                return;
+            }
+            
+            // 주석 부분(0, 2단계)과 클래스명 부분(나머지)의 색상 지정
+            if (stepIndex === 0 || stepIndex === 2) {
+                const span = document.createElement('span');
+                span.className = 'text-green-700';
+                span.textContent = char;
+                if (this.cursor.parentNode) {
+                    this.cursor.parentNode.insertBefore(span, this.cursor);
+                }
+            } else {                
+                const span = document.createElement('span');
+                span.className = 'text-green-500';
+                span.textContent = char;
+                if (this.cursor.parentNode) {
+                    this.cursor.parentNode.insertBefore(span, this.cursor);
+                }
+            }
+        }
+        
+        addClassToPreview(className) {
+            // 클래스 추가 전에 약간의 지연을 두어 타이핑 완료 후 적용
+            setTimeout(() => {
+                this.livePreview.classList.add(className);
+                
+                // 더 역동적인 하이라이트 효과
+                this.livePreview.style.transform = 'scale(1.05)';
+                this.livePreview.style.filter = 'brightness(1.1)';
+                
+                setTimeout(() => {
+                    this.livePreview.style.transform = 'scale(1)';
+                    this.livePreview.style.filter = 'brightness(1)';
+                }, 150);
+            }, 50);
+        }
+        
+        addNextStepMarker(markerId) {
+            // 다음 단계 시작 지점에 마커 추가
+            const marker = document.createElement('span');
+            marker.id = markerId;
+            marker.style.display = 'none'; // 숨김 처리
+            if (this.cursor.parentNode) {
+                this.cursor.parentNode.insertBefore(marker, this.cursor);
+            }            
+        }
+        
+        removeExistingCursor() {
+            // 기존 커서 제거
+            const existingCursor = document.getElementById('typing-cursor');
+            if (existingCursor) {
+                existingCursor.remove();
+            }
+        }
+        
+        moveCursorToMarker(markerId) {
+            // 마커 위치로 커서 이동
+            const marker = document.getElementById(markerId);
+            if (marker) {
+                console.log("Moving cursor to marker:", markerId);
+                
+                // 기존 커서 제거
+                this.removeExistingCursor();
+                
+                // 마커 다음 위치에 새 커서 생성
+                const newCursor = document.createElement('span');
+                newCursor.id = 'typing-cursor';
+                newCursor.className = 'animate-pulse';
+                newCursor.textContent = '|';
+                
+                // 마커 다음 위치에 커서 삽입
+                if (marker.nextSibling) {
+                    marker.parentNode.insertBefore(newCursor, marker.nextSibling);
+                } else {
+                    marker.parentNode.appendChild(newCursor);
+                }
+                
+                this.cursor = newCursor;
+            } else {
+                console.error("Marker not found:", markerId);
+            }
+        }
+        
+        resetDemo() {
+            console.log("Resetting demo");
+            
+            // 기존 커서 제거
+            this.removeExistingCursor();
+            
+            // 코드 영역 리셋
+            this.codeDisplay.innerHTML = `
+                <span class="text-gray-500">&lt;</span><span class="text-blue-400">p</span><span class="text-gray-500">&gt;</span>
+                <span class="text-white">Olive CSS</span>
+                <span class="text-gray-500">&lt;/</span><span class="text-blue-400">p</span><span class="text-gray-500">&gt;</span>
+                <span id="typing-cursor" class="animate-pulse">|</span>
+            `;
+            
+            // 라이브 프리뷰 리셋
+            this.livePreview.className = 'transition-all duration-300 ease-out';
+            this.livePreview.style.filter = 'brightness(1)';
+            
+            // 커서 참조 업데이트
+            this.cursor = document.getElementById('typing-cursor');
+            console.log("Cursor updated:", !!this.cursor);
+        }
+        
+        delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    }
+    
+    // 스크롤에 따른 헤더 축소 기능
+    function initScrollHeader() {
+        const header = document.getElementById('main-header');
+        if (!header) return;
+        
+        let isScrolled = false;
+        const scrollThreshold = 200; // 100px 스크롤 시 축소 시작
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            
+            if (scrollY > scrollThreshold && !isScrolled) {
+                // 스크롤이 임계값을 넘으면 헤더에 scrolled 클래스 추가
+                header.classList.add('scrolled');
+                isScrolled = true;
+            } else if (scrollY <= scrollThreshold && isScrolled) {
+                // 스크롤이 임계값 이하로 돌아오면 헤더에서 scrolled 클래스 제거
+                header.classList.remove('scrolled');
+                isScrolled = false;
+            }
+        });
+    }
+
+    // DOM이 로드된 후 초기화
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("DOM loaded, initializing TypingDemo");
+        new TypingDemo();
+        initScrollHeader();
+    });
+    
+    // 추가 안전장치: window.onload도 확인
+    window.addEventListener('load', () => {
+        console.log("Window loaded");
+        if (!window.typingDemo) {
+            console.log("Creating TypingDemo on window load");
+            window.typingDemo = new TypingDemo();
+        }
+    });
+</script>
