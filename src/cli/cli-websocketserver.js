@@ -5,6 +5,7 @@
 // ========================================
 import pkg from 'ws';
 const { Server: WS } = pkg;
+import { ColorUtility } from './cli-utils.js';
 
 // ---------------------------------------------
 // 기본 WebSocketServer 클래스 (추상 클래스 역할)
@@ -15,6 +16,10 @@ export class WebSocketServer {
     this.port = port;
     this.wsServer = null;
     this.wsSecurityValidator = null;
+    
+    // ColorUtility 인스턴스 추가
+    this.colorUtility = new ColorUtility();
+    this.highlightError = this.colorUtility.highlightError.bind(this.colorUtility);
   }
 
   // Livereload 트리거 (공통 기능)
