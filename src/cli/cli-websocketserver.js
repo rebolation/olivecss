@@ -3,8 +3,7 @@
 // ========================================
 // Olive CSS WebSocket Server 클래스들
 // ========================================
-import pkg from 'ws';
-const { Server: WS } = pkg;
+import { WebSocketServer as WS } from 'ws';
 import { ColorUtility } from './cli-utils.js';
 
 // ---------------------------------------------

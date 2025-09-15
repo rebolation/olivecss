@@ -1,7 +1,7 @@
 {
   "name": "olivecss",
   "type": "module",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "A lightweight plugin and preprocessor that transforms comments into CSS classes and inline styles.",
   "keywords": [
     "css",

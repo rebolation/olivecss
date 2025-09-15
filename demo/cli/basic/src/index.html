@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Olive CSS CLI</title>
+		<meta charset="UTF-8" >
+		<meta name="viewport" content="width=device-width" >
+		<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫒</text></svg>" >
+		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+		<link rel="stylesheet" href="./index.css" >
+	</head>
+	<body class="bg-slate-200"> 
+		<div class="max-w-2xl mx-auto py-24"> 
+			<h1 class="text-3xl font-bold text-slate-700 mb-6">Olive CSS's CLI tool for HTML</h1> 
+			<p><code>olive</code> watches, generates, and serves <code>.html</code> files. Enjoy!</p>
+			<div class="flex flex-col gap-4 text-lg py-1"> 
+				<h2 class="text-2xl font-bold text-slate-700 mt-8">Install</h2> 
+				<p class="m-y2 bg-slate-700 text-white text-2xl p-2 text-center rounded">npm install -g olive</p> 
+				<h2 class="text-2xl font-bold text-slate-700 mt-2">Run</h2> 
+				<p class="m-y2 bg-slate-700 text-white text-2xl p-2 text-center rounded">olive</p> 
+				<h2 class="text-2xl font-bold text-slate-700 mt-2">Edit</h2> 
+				<p class="m-y2 bg-slate-700 text-white text-2xl p-2 text-center rounded">&lt;p&gt;Hello, olive!&lt;/p&gt;&lt;!-- text-white --&gt;</p> 
+				<h2 class="text-2xl font-bold text-slate-700 mt-2">Preview</h2> 
+				<p class="m-y2 bg-slate-700 text-white text-2xl p-2 text-center rounded">http://localhost:3000</p> 
+			</div>
+			<div class="mt-8 p-4 bg-white rounded shadow mb-4"> 
+				<h2 class="text-xl font-bold mb-2">How it works</h2> 
+				<ul class="list-disc pl-6 text-base space-y-1"> 
+					<li>Open your terminal and run: <code>olive [directory]</code> at your project root.</li>
+					<li><code>olive</code> watches your source directory(<b>olive style HTML</b>), generates an output directory(<b>non-olive style HTML</b>), and serves the output directory with a built-in livereload web server.</li>
+				</ul>
+				<h2 class="text-xl font-bold mb-2 mt-4">Auto-detect</h2> 
+				<ul class="list-disc pl-6 text-base space-y-1"> 
+					<li>If no directory argument is given, <code>olive</code> will auto-detect one of <code>_src</code>, <code>olive_src</code>, <code>src_</code>, or <code>src_olive</code> in your project root.</li>
+				</ul>
+				<h2 class="text-xl font-bold mb-2 mt-4">Source directory</h2> 
+				<ul class="list-disc pl-6 text-base space-y-1"> 
+					<li>
+						The watched directory must follow one of these patterns:
+						<ul class="pl-4 mt-1 text-sm text-slate-600"> 
+							<li>- Start with <code>_</code> or <code>olive_</code> (e.g., <code>_mysrc</code>, <code>olive_mysrc</code>)</li>
+							<li>- End with <code>_</code> or <code>_olive</code> (e.g., <code>mysrc_</code>, <code>mysrc_olive</code>)</li>
+						</ul>
+					</li>
+					<li>Only one directory argument is allowed. If you provide more than one, Olive CSS will show an error.</li>
+					<li>olive ignores the <code>node_modules</code>.</li>
+				</ul>
+				<h2 class="text-xl font-bold mb-2 mt-4">Output directory</h2> 
+				<ul class="list-disc pl-6 text-base space-y-1"> 
+					<li>
+							The name of the output directory is the same as the source directory name, with the prefix or suffix removed.
+							<ul class="pl-4 mt-1 text-sm text-slate-600"> 
+								<li>- e.g., <code>_src</code>, <code>olive_src</code>, <code>src_</code>, or <code>src_olive</code> is converted into the <code>src</code>.</li>
+							</ul>
+					</li>
+					<li>The files in the output directory are served to the browser through a web server, and the browser reloads in real time whenever the files in the source directory are modified.</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+
+<style>
+	code {
+		background-color: #f0f0f0;
+		padding: 0.2em 0.4em;
+		border-radius: 0.2em;
+	}
+</style>
