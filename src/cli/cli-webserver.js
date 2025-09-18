@@ -16,7 +16,7 @@ import {
 // ---------------------------------------------
 
 export class WebServer {
-  constructor(port = 3000, baseDir = null) {
+  constructor(port = 5525, baseDir = null) {
     this.port = port;
     this.baseDir = baseDir;
     this.server = null;
@@ -36,13 +36,13 @@ export class WebServer {
       
       this.server.on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
-          // 최대 10개 포트까지 시도 (3000-3009)
-          if (this.port - 3000 < 10) {
+          // 최대 10개 포트까지 시도 (5525-5534)
+          if (this.port - 5525 < 10) {
             this.port++;
             this.server.close();
             this.tryListen(resolve, reject);
           } else {
-            reject(new Error(`Multiple ports (3000-${this.port}) are in use. Please specify a different port range.`));
+            reject(new Error(`Multiple ports (5525-${this.port}) are in use. Please specify a different port range.`));
           }
         } else {
           reject(err);
@@ -187,7 +187,7 @@ export class WebServer {
 // ---------------------------------------------
 
 export class SecureWebServer extends WebServer {
-  constructor(port = 3000, baseDir = null, validator = null) {
+  constructor(port = 5525, baseDir = null, validator = null) {
     super(port, baseDir);
     this.validator = validator;
   }
@@ -201,7 +201,7 @@ export class SecureWebServer extends WebServer {
       res.setHeader('X-XSS-Protection', '1; mode=block');
       
       // 개발 환경에서는 CORS 허용 (로컬 개발용)
-      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+      res.setHeader('Access-Control-Allow-Origin', `http://localhost:${this.port}`);
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
       res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     } catch (error) {
@@ -228,7 +228,7 @@ export class SecureWebServer extends WebServer {
 // ---------------------------------------------
 
 export class SecureStaticWebServer extends SecureWebServer {
-  constructor(port = 3000, baseDir = null, validator = null) {
+  constructor(port = 5525, baseDir = null, validator = null) {
     super(port, baseDir, validator);
   }
 
@@ -245,10 +245,9 @@ export class SecureStaticWebServer extends SecureWebServer {
       const path = pathModule.default;
 
       const serve = sirv(this.serveRoot || this.baseDir, {
-        // dev: true,
-        dev: false,
-        etag: true,
-        maxAge: 0,
+        dev: true, // 개발 모드로 설정하여 캐시 비활성화
+        etag: false, // ETag 비활성화
+        maxAge: 0, // 캐시 만료 시간 0
         // 404 에러 처리를 위한 설정 추가
         onNoMatch: (req, res) => {
           // 존재하지 않는 파일에 대해 404 응답
@@ -311,12 +310,41 @@ export class SecureStaticWebServer extends SecureWebServer {
               // 보안 헤더 설정
               this.setSecureResponseHeaders(res);
               res.setHeader("Content-Type", "text/html; charset=utf-8");
+              // HTML 파일 캐시 무효화
+              res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+              res.setHeader('Pragma', 'no-cache');
+              res.setHeader('Expires', '0');
               res.end(modifiedHtml);
               return;
             } catch (e) {
               // HTML 파일 처리 실패 시 sirv로 fallback
               console.error(`  🫒  ${this.highlightError("HTML PROCESSING FAILED")} - ${e.message}`);
             }
+          }
+
+          // MIME 타입 및 캐시 헤더 설정
+          if (req.url.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css; charset=utf-8');
+            // CSS 파일 캐시 무효화
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
+          } else if (req.url.endsWith('.js')) {
+            res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+            // JS 파일 캐시 무효화
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
+          } else if (req.url.endsWith('.html')) {
+            res.setHeader('Content-Type', 'text/html; charset=utf-8');
+            // HTML 파일 캐시 무효화
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
+          } else if (req.url.endsWith('.json')) {
+            res.setHeader('Content-Type', 'application/json; charset=utf-8');
+          } else if (req.url.endsWith('.svg')) {
+            res.setHeader('Content-Type', 'image/svg+xml; charset=utf-8');
           }
 
           // HTML이 아닌 파일이나 fallback의 경우 sirv로 처리
@@ -343,7 +371,7 @@ export class SecureStaticWebServer extends SecureWebServer {
 // ---------------------------------------------
 
 export class SecureProxyWebServer extends SecureWebServer {
-  constructor(port = 3000, baseDir = null, validator = null) {
+  constructor(port = 5525, baseDir = null, validator = null) {
     super(port, baseDir, validator);
     this.targetHost = 'localhost';
     this.targetPort = 4000;

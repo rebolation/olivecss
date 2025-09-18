@@ -308,7 +308,13 @@ export class WebSocketSecurityValidator extends BaseValidator {
         return { allowed: false, reason: 'Only "reload", "ping", and "pong" messages are allowed' };
       }
 
-      if (!this.activeConnections.has(clientIP)) {
+      // ping/pong 메시지는 연결 등록 상태와 관계없이 허용 (연결 초기화 중일 수 있음)
+      if (message === 'ping' || message === 'pong') {
+        return { allowed: true, reason: 'Ping/Pong message allowed' };
+      }
+
+      // reload 메시지만 연결 등록 상태 확인
+      if (message === 'reload' && !this.activeConnections.has(clientIP)) {
         return { allowed: false, reason: 'Connection not active' };
       }
 

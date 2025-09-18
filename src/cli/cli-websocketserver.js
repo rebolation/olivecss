@@ -11,7 +11,7 @@ import { ColorUtility } from './cli-utils.js';
 // ---------------------------------------------
 
 export class WebSocketServer {
-  constructor(port = 3000) {
+  constructor(port = 5525) {
     this.port = port;
     this.wsServer = null;
     this.wsSecurityValidator = null;
@@ -50,7 +50,7 @@ export class WebSocketServer {
 // ---------------------------------------------
 
 export class SecureWebSocketServer extends WebSocketServer {
-  constructor(port = 3000, validator = null) {
+  constructor(port = 5525, validator = null) {
     super(port);
     this.validator = validator;
   }
@@ -63,6 +63,7 @@ export class SecureWebSocketServer extends WebSocketServer {
       }
 
       const connectedClients = wss.clients.size;
+      
       if (connectedClients === 0) {
         return;
       }
@@ -113,8 +114,8 @@ export class SecureWebSocketServer extends WebSocketServer {
           // 메시지 이벤트 처리
           ws.on('message', (data) => {
             try {
-              // 서버측 메시지 검증 강화
-              let message = data;
+              // 서버측 메시지 검증 강화 - Buffer를 문자열로 변환
+              let message = data.toString().trim();
               
               // 허용된 메시지만 처리: 'reload', 'ping', 'pong'
               const allowedMessages = ['reload', 'ping', 'pong'];

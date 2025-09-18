@@ -281,6 +281,8 @@ export class Watcher {
     try {
       if (global.broadcastReload) {
         global.broadcastReload();
+      } else {
+        console.error(`  🫒  ${this.highlightError("LIVERELOAD NOT AVAILABLE")} - broadcastReload function not found`);
       }
     } catch (error) {
       console.error(`  🫒  ${this.highlightError("LIVERELOAD FAILED")} - ${error.message}`);

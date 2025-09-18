@@ -32,8 +32,8 @@ import { ColorUtility } from './cli-utils.js';
 class OliveCSSJekyll {
   constructor(watchDirs = null, outputDirs = null, watcher = null) {
     this.baseDir = null;
-    this.jekyllPort = 4000;  // Jekyll 기본 포트
-    this.olivePort = 3000;   // Olive CSS 프록시 서버 포트
+    this.jekyllPort = 6636;  // Jekyll 기본 포트
+    this.olivePort = 5525;   // Olive CSS 프록시 서버 포트
     this.jekyllProcess = null;
     this.server = null;
     this.wsServer = null;
@@ -81,10 +81,16 @@ class OliveCSSJekyll {
       // 1. Jekyll 서버 시작
       await this.startJekyllServe();
       
-      // 2. Olive CSS 프록시 서버 시작
+      // 2. Jekyll 서버가 준비될 때까지 대기
+      await this.waitForJekyllReady();
+      
+      // 3. Olive CSS 프록시 서버 시작 (최신 Jekyll 포트 사용)
       await this.startOliveCSSProxy();
       
-      // 3. WebSocket 서버 시작 (Livereload) - SecureWebSocketServer 클래스 사용
+      // 4. WebSocket 서버 포트를 Olive 포트와 동일하게 설정
+      this.webSocketServer.port = this.olivePort;
+      
+      // 5. WebSocket 서버 시작 (Livereload) - SecureWebSocketServer 클래스 사용
       this.wsServer = await this.webSocketServer.start(this.server);
       
       // 4. 파일 감시 시작 - cli.js의 Watcher 인스턴스 직접 사용
@@ -192,6 +198,19 @@ class OliveCSSJekyll {
       this.jekyllProcess.stdout.on('data', (data) => {
         const output = data.toString();
         if (output.includes('Server running')) {
+          // Jekyll 서버가 실제로 실행된 포트를 감지
+          const portMatch = output.match(/http:\/\/localhost:(\d+)/);
+          if (portMatch) {
+            const actualPort = parseInt(portMatch[1], 10);
+            if (actualPort !== this.jekyllPort) {
+              console.log(`  🫒  Jekyll server started on port ${actualPort} (original port ${this.jekyllPort} was busy)`);
+              this.jekyllPort = actualPort;
+              // 프록시 서버의 타겟 포트도 업데이트
+              if (this.webServer) {
+                this.webServer.targetPort = this.jekyllPort;
+              }
+            }
+          }
           // console.log(`  🫒  Jekyll server is running at http://localhost:${this.jekyllPort}`);
           resolve();
         }
@@ -290,17 +309,27 @@ class OliveCSSJekyll {
   
   async startOliveCSSProxy() {
     try {
+      // Jekyll 서버가 실제로 실행 중인지 확인
+      const isJekyllReady = await this.checkJekyllServer();
+      if (!isJekyllReady) {
+        throw new Error(`Jekyll server is not ready at port ${this.jekyllPort}. Please check if Jekyll is running properly.`);
+      }
+      
+      // 프록시 서버의 타겟 포트를 Jekyll 포트로 설정
+      this.webServer.targetPort = this.jekyllPort;
+      
       // WebServer 클래스를 사용하여 프록시 서버 시작
-      await this.webServer.start(this.jekyllPort, 'localhost');
+      await this.webServer.start();
       
       // 서버 인스턴스 참조 설정
       this.server = this.webServer.server;
       this.olivePort = this.webServer.port;
       
       // 포트가 변경되었는지 확인하고 로깅
-      if (this.olivePort !== this.webServer.port) {
+      if (this.olivePort !== 5525) {
         console.log(`  🫒  Olive CSS proxy server started on port ${this.olivePort} (original port was busy)`);
       }
+      console.log(`  🫒  Proxying to Jekyll server at http://localhost:${this.jekyllPort}`);
       
     } catch (error) {
       throw error;

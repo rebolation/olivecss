@@ -24,7 +24,7 @@ import { SecureWebSocketServer } from './cli-websocketserver.js';
 
 class OliveCSS {
   constructor() {
-    this.port = 3000;
+    this.port = 5525; // 기본 포트를 5525로 변경
     this.baseDir = null;
     this.watchDirs = []; // 여러 폴더를 배열로 저장
     this.serveRoot = null; // 정적 파일 서빙 루트 디렉토리
@@ -143,8 +143,25 @@ class OliveCSS {
   
   parseArguments() {
     try {
-              // 명령행 인수 파싱 및 유효성 검사
-        let dirArgs = this.validators.argument.validateArguments(process.argv.slice(2).filter(arg => !arg.startsWith('-')));
+      // 명령행 인수 파싱
+      const args = process.argv.slice(2);
+      
+      // 포트 옵션 파싱 (-p, --port)
+      const portIndex = args.findIndex(arg => arg === '-p' || arg === '--port');
+      if (portIndex !== -1 && portIndex + 1 < args.length) {
+        const portArg = args[portIndex + 1];
+        const port = parseInt(portArg, 10);
+        if (isNaN(port) || port < 1 || port > 65535) {
+          console.error(`  🫒  ${this.highlightError("INVALID PORT")} - Port must be a number between 1 and 65535`);
+          process.exit(1);
+        }
+        this.port = port;
+        // 포트 옵션과 값을 제거
+        args.splice(portIndex, 2);
+      }
+      
+      // 디렉토리 인수만 필터링 (포트 옵션 제외)
+      let dirArgs = this.validators.argument.validateArguments(args.filter(arg => !arg.startsWith('-')));
       
       // Jekyll 모드 확인
       this.isJekyllMode = dirArgs.length > 0 && dirArgs[0] === 'jekyll';
@@ -177,11 +194,13 @@ class OliveCSS {
         console.error(`  🫒  ${this.highlightFile('- Start with "_" or "olive_" (e.g., _mysrc, olive_mysrc)')}`);
         console.error(`  🫒  ${this.highlightFile('- End with "_" or "_olive" (e.g., mysrc_, mysrc_olive)')}`);
         console.error(`\n  🫒  ${this.highlight("USAGE EXAMPLE")} - ${this.highlightInfo("olivecss _mysrc")} or ${this.highlightInfo("olivecss _mysrc _other olive_src")}`);
+        console.error(`  🫒  ${this.highlight("PORT OPTION")} - ${this.highlightInfo("olivecss -p 8080 _mysrc")} or ${this.highlightInfo("olivecss --port 8080 _mysrc")}`);
         process.exit(1);
       } else if (error.message.includes('Too many arguments')) {
         // 인자가 너무 많은 경우 (이제는 여러 폴더 허용)
         console.error(`  🫒  ${this.highlightError("ARGUMENT VALIDATION FAILED")} - Invalid arguments provided`);
         console.error(`\n  🫒  ${this.highlight("USAGE EXAMPLE")} - ${this.highlightInfo("olivecss _mysrc")} or ${this.highlightInfo("olivecss _mysrc _other olive_src")}`);
+        console.error(`  🫒  ${this.highlight("PORT OPTION")} - ${this.highlightInfo("olivecss -p 8080 _mysrc")} or ${this.highlightInfo("olivecss --port 8080 _mysrc")}`);
         process.exit(1);
       } else {
         // 기타 예외
@@ -355,6 +374,9 @@ class OliveCSS {
 
   async startWebSocketServer(port = null) {
     try {
+      // WebSocket 서버 포트를 HTTP 서버 포트와 동일하게 설정
+      this.webSocketServer.port = this.port;
+      
       // SecureStaticWebSocketServer 클래스를 사용하여 WebSocket 서버 시작
       // console.log('  🫒  Starting WebSocket server...');
       // console.log('  🫒  Server instance:', this.server ? 'Available' : 'Not available');
